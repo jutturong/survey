@@ -1,4 +1,51 @@
 <!DOCTYPE html>
+<script type="text/javascript">
+    function  dia_report_dept() //report แยกอาชีพ โรค
+    {
+          $('#sr_report_dep').dialog('open'); 
+         
+    }
+    
+    function  excel_report(ch)//รายงานผล excel
+    {
+        if(ch == 1)
+        {
+               var  url="<?=base_url()?>report_pdf/servey/excel1.php";
+               //alert( url );
+              window.open(url);
+        }
+      
+    }
+   
+   //sr_report_dep_excel  รายงานผลจาก excel
+   function  dep_excel_report()//รายงานผล excel
+    {
+      //  if(ch == 1)
+        {
+              // var  url="<?=base_url()?>report_pdf/servey/excel1.php";
+               //alert( url );
+             // window.open(url);
+               $('#sr_report_dep_excel').dialog('open');
+        }
+      
+    }
+    
+    //excel_dia_vacation
+    function  vacation_excel_report()//รายงานผล excel
+    {
+      //  if(ch == 1)
+        {
+              // var  url="<?=base_url()?>report_pdf/servey/excel1.php";
+               //alert( url );
+             // window.open(url);
+               $('#excel_dia_vacation').dialog('open');
+        }
+      
+    }
+    
+    
+</script>
+
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -54,7 +101,7 @@
                 <div class="easyui-panel" title=" รายการหลัก " style="width:200px;">
         <div class="easyui-menu" data-options="inline:true" style="width:100%">
             <div onclick="step1()" data-options=" iconCls:'icon-man' " >
-                เพิ่มข้อมูล ชื่อ-นามสกุล 
+                เพิ่มข้อมูลทั่วไป ชื่อ-นามสกุล 
             </div>
             
           
@@ -147,10 +194,35 @@
             </div>
             -->
             
+               
+             
             <div data-options="region:'center'" style="padding:10px">
                 <!--Center Content-->
                 <?=$this->load->view("fr_inst1")?>
                 
+               
+                <div style="margin-bottom: 10px">
+                       <a href="javascript:void(0)" class="easyui-menubutton" data-options="size:'large',iconCls:'icon-man',iconAlign:'top',plain:false,menu:'#mm'  ">1.Report Excel</a>
+                       <div id="mm" style="display: none">
+                           <div iconCls='icon-ok'  style="width: 200px;height: 40px;" onclick="excel_report(1)">1.วิเคราะห์ผล ประจำปี</div>
+                       </div>
+                       
+                       
+                <a href="javascript:void(0)" class="easyui-menubutton" data-options="size:'large',iconCls:'icon-man',iconAlign:'top',plain:false,menu:'#mm2'  ">2.Report Excel</a>
+                       <div id="mm2" style="display: none">
+                           <div iconCls='icon-ok'  style="width: 250px;height: 40px;" onclick="dep_excel_report()">2.วิเคราะห์ผล จากหน่วยงาน(ประจำปี)</div>
+                       </div>     
+                
+                 <a href="javascript:void(0)" class="easyui-menubutton" data-options="size:'large',iconCls:'icon-man',iconAlign:'top',plain:false,menu:'#mm3'  ">3.Report Excel</a>
+                       <div id="mm3" style="display: none">
+                           <div iconCls='icon-ok'  style="width: 250px;height: 40px;" onclick="vacation_excel_report()">3.วิเคราะห์ผล จากอาชีพ(ประจำปี)</div>
+                       </div> 
+                 
+                </div>
+                
+                
+               
+               
                 <table id="dg_main" class="f1 easyui-datagrid" title="ตาราง ชื่อ-นามสกุล , หน่วยงาน " style="width:700px;" data-options=" 
                        iconCls:'icon-man',
                        url:'<?=base_url()?>index.php/welcome/fetch_employee', 
@@ -183,9 +255,6 @@
                                      $('#id_employee').numberbox('setValue',row.id_employee);
                                      $('#id_title').combobox('setValue',row.id_title);
                                      $('#firstname').textbox('setValue',row.name);
-                                     
-                                    // $.messager.alert('',row.name);
-                                     
                                      $('#lastname').textbox('setValue',row.surname);
                                     // $('#department').textbox('setValue',row.department);
                                      $('#id_department').combobox('setValue',row.id_department);
@@ -214,7 +283,9 @@
                                         //$('#birdthdate').datebox('setValue', '6/1/2012');
                                          $('#birdthdate').datebox('setValue', totol_dmy );
                                      }
-
+                                     
+                                     
+                                    
                                       _url= '<?=base_url()?>index.php/welcome/update_emp/' ;
                                }
                                  
@@ -250,6 +321,7 @@
                 
                 <?=$this->load->view('fr_analy1')?>
                 
+                  
                 <div style="margin:20px 0;"></div>
                 <table title="  ข้อมูลการแปรผล" id="dg_analy1" class="f1 easyui-datagrid" style="width:1000px;height: 500px" data-options="
                        iconCls:'icon-large-smartart',
@@ -267,7 +339,8 @@
                                      { field:'AR',title:'รอบเอว' },
                                      { field:'BMI',title:'BMI' },
                                      { field:'id_diag',title:'โรคประจำตัว' },
-                                     { field:'diag_detail',title:'รายละเอียดโรคประจำตัว' },
+                                    // { field:'diag_detail',title:'รายละเอียดโรคประจำตัว' },
+                                     { field:'disease_detail',title:'รายละเอียดโรคประจำตัว' },
                                      { field:'smoke',title:'สูบบุหรี่' },
                                      { field:'alh',title:'ดื่มสุรา' },
                                      { field:'exer',title:'ออกกำลังกาย' },
@@ -295,6 +368,7 @@
                                  }
                               }
                          }
+                        
                          ,
                          { text:'ลบข้อมูล',iconCls:'icon-remove',handler:function()
                          {
@@ -343,14 +417,20 @@
                           text:'วิเคราะห์ผลจากหน่วยงาน(ประจำปี)',iconCls:'icon-large-clipart',handler:function()
                           { 
                             //alert('t'); 
-                            $('#dia_analysis').dialog('open');
+                            //$('#dia_analysis').dialog('open');
+                                var  d=new Date();
+                                 var n = d.getFullYear();
+                                   //window.open('<?=base_url()?>report_pdf/servey/query_department.php?y=' + n);
+                                  // window.open('<?=base_url()?>report_pdf/servey/report_department.php?y=' + n);
+                                    dia_report_dept();
                           }
                         },
                          {
                           text:'วิเคราะห์ผลจากอาชีพ(ประจำปี)',iconCls:'icon-large-clipart',handler:function()
                           { 
-                            //alert('t'); 
-                            $('#dia_analysis').dialog('open');
+                                //alert('t'); 
+                               //  $('#dia_analysis').dialog('open');
+                                 $('#dia_vacation').dialog('open');
                           }
                         }
                         
@@ -457,7 +537,9 @@
                                                     { field:'AR',title:'รอบเอว' },
                                                     { field:'BMI',title:'BMI' },
                                                     { field:'id_diag',title:'โรคประจำตัว' },
-                                                    { field:'diag_detail',title:'รายละเอียดโรคประจำตัว' },
+                                                  //  { field:'diag_detail',title:'รายละเอียดโรคประจำตัว' },
+                                                   
+                                                    { field:'disease_detail',title:'รายละเอียดโรคประจำตัว' },
                                                     { field:'smoke',title:'สูบบุหรี่' },
                                                     { field:'alh',title:'ดื่มสุรา' },
                                                     { field:'exer',title:'ออกกำลังกาย' },
@@ -500,8 +582,179 @@
         
      </div>
      <!-- วิเคราะห์ผล -->
+   
+<!--  report   แยกแผนก --->
+<div class="easyui-dialog"  title="  วิเคราะห์ผลจากหน่วยงานประจำปี (Excel) "   style="  left:50px;top: 30px; width:400px;height: 130px;"  id="sr_report_dep" data-options=" closed:true, iconCls:'icon-man' ,buttons:[ {  text:'Close',   iconCls:'icon-cancel'  ,handler:function(){  $('#sr_report_dep').dialog('close');  }  }   ]    "   >  
+    <div style="padding: 10px   10px;left: 10px; " >
+        <label>
+        เลือกแผนก : 
+         <input class="easyui-combobox" id="sr_id_department"  name="sr_id_department"  style="width:200px;height: 30px;"
+                               data-options="
+                                 url:'<?=base_url()?>index.php/welcome/tb_department',
+                                 valueField:'id_department',
+                                 textField:'department_detail',
+                                 mode:'remote',
+                                 method:'get',
+                                 onSelect:function()
+                                 {                              
+                                       var   id_department=$('#sr_id_department').combobox('getValue');                
+                                       if(   id_department >  0 )
+                                       {
+                                              //alert( id_department  );
+                                              var  d=new Date();
+                                              var n = d.getFullYear();
+                                              var  url = '<?=base_url()?>report_pdf/servey/report_department.php?y=' + n +  '&id_department=' + id_department   ;
+                                             //  alert(  url  );
+                                             window.open(   url   );
+                                              
+                                       }
+                                      
+                                       
+                                 }
+                               "
+                               />
+                        
+    </label>
+    </div>
+    
+</div>
+<!--  report   แยกแผนก --->
+
+
+<!-----------------  วิเคราะห์ผลจากอาชีพ --------------------->
+<div id="dia_vacation" class="easyui-dialog"  title="  วิเคราะห์ผลจากอาชีพ   "   style="width: 400px;height: 150px;" data-options="
+     closed:true,
+     iconCls:'icon-man',
+     buttons:[
+     {  iconCls:'icon-cancel',  text:'Close',handler:function(){  $('#dia_vacation').dialog('close');  } }
+     ] 
+     ">
+    
+    <div style="padding: 10px  20px;"  >
+       เลือกอาชีพ : 
+        <input class="easyui-combobox" id="cmb_vocation_rp" name="cmb_vocation_rp" style="width:200px;height: 40px;"  data-options="
+                                              url:'<?=base_url()?>index.php/welcome/tb_vocation',
+                                              mode:'remote',
+                                              method:'get',
+                                              valueField:'id_vocation',
+                                              textField:'vocation_detail',
+                                                onSelect:function()
+                                                    {                              
+                                                          var   id_vocation=$('#cmb_vocation_rp').combobox('getValue');                
+                                                          if(   id_vocation >  0 )
+                                                          {
+                                                               
+                                                                 var  d=new Date();
+                                                                 var n = d.getFullYear();
+                                                              //   var  url = '<?=base_url()?>report_pdf/servey/report_department.php?y=' + n +  '&id_department=' + id_department   ;
+                                                                var  url = '<?=base_url()?>report_pdf/servey/report_vacation.php?y=' + n +  '&id_vocation=' + id_vocation   ;
+                                                          
+                                                                window.open(   url   );
+
+                                                          }
+
+
+                                                    }
+                                              
+                                              "  />
+        
+    </div>
+    
      
      
+     
+     
+</div>
+<!-----------------  วิเคราะห์ผลจากอาชีพ --------------------->
+
+
+<!-- ---------------  EXCEL -----------------------------------------
+<!--  report   แยกแผนก จาก excel--->
+<div class="easyui-dialog"  title="  วิเคราะห์ผลจากหน่วยงานประจำปี (Excel) "   style="  left:50px;top: 30px; width:400px;height: 130px;"  id="sr_report_dep_excel" data-options=" closed:true, iconCls:'icon-man' ,buttons:[ {  text:'Close',   iconCls:'icon-cancel'  ,handler:function(){  $('#sr_report_dep_excel').dialog('close');  }  }   ]    "   >  
+    <div style="padding: 10px   10px;left: 10px; " >
+        <label>
+        เลือกแผนก : 
+         <input class="easyui-combobox" id="excel_sr_id_department"  name="excel_sr_id_department"  style="width:200px;height: 30px;"
+                               data-options="
+                                 url:'<?=base_url()?>index.php/welcome/tb_department',
+                                 valueField:'id_department',
+                                 textField:'department_detail',
+                                 mode:'remote',
+                                 method:'get',
+                                 onSelect:function()
+                                 {                              
+                                       var   id_department=$('#excel_sr_id_department').combobox('getValue');                
+                                       if(   id_department >  0 )
+                                       {
+                                              //alert( id_department  );
+                                              var  d=new Date();
+                                              var n = d.getFullYear();
+                                           //   var  url = '<?=base_url()?>report_pdf/servey/report_department.php?y=' + n +  '&id_department=' + id_department   ;
+                                             //  alert(  url  );
+                                               var  url='<?=base_url()?>report_pdf/servey/excel2.php?dep=' + id_department;
+                                             window.open(   url   );
+                                              
+                                       }
+                                      
+                                       
+                                 }
+                               "
+                               />
+                        
+    </label>
+    </div>
+    
+</div>
+<!--  report   แยกแผนก --->
+
+
+<!-----------------  วิเคราะห์ผลจากอาชีพ excel--------------------->
+<div id="excel_dia_vacation" class="easyui-dialog"  title="  วิเคราะห์ผลจากอาชีพ  (Excel) "   style="width: 400px;height: 150px;" data-options="
+     closed:true,
+     iconCls:'icon-man',
+     buttons:[
+     {  iconCls:'icon-cancel',  text:'Close',handler:function(){  $('#excel_dia_vacation').dialog('close');  } }
+     ] 
+     ">
+    
+    <div style="padding: 10px  20px;"  >
+       เลือกอาชีพ : 
+        <input class="easyui-combobox" id="excel_cmb_vocation_rp" name="excel_cmb_vocation_rp" style="width:200px;height: 40px;"  data-options="
+                                              url:'<?=base_url()?>index.php/welcome/tb_vocation',
+                                              mode:'remote',
+                                              method:'get',
+                                              valueField:'id_vocation',
+                                              textField:'vocation_detail',
+                                                onSelect:function()
+                                                    {                              
+                                                          var   id_vocation=$('#excel_cmb_vocation_rp').combobox('getValue');                
+                                                          if(   id_vocation >  0 )
+                                                          {
+                                                               
+                                                                 var  d=new Date();
+                                                                 var n = d.getFullYear();
+                                                              //   var  url = '<?=base_url()?>report_pdf/servey/report_department.php?y=' + n +  '&id_department=' + id_department   ;
+                                                            //    var  url = '<?=base_url()?>report_pdf/servey/report_vacation.php?y=' + n +  '&id_vocation=' + id_vocation   ;
+                                                           var  url='<?=base_url()?>report_pdf/servey/excel3.php?voca=' + id_vocation;
+                                                                window.open(   url   );
+
+                                                          }
+
+
+                                                    }
+                                              
+                                              "  />
+        
+    </div>
+    
+     
+     
+     
+     
+</div>
+<!-----------------  วิเคราะห์ผลจากอาชีพ --------------------->
+
+
 </body>
 </html>
 ﻿

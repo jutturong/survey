@@ -1,3 +1,5 @@
+ 
+
 <script type="text/javascript">
     
     //http://localhost/servey1/index.php/welcome/fetch_employee
@@ -132,9 +134,13 @@
                     </td>
                     <td>
                         <input class="easyui-numberbox"  id="id_employee" name="id_employee" style="width:100px;height: 30px;" readonly="true"  />
-                    
-                     
-                    
+                    </td>
+                </tr>
+                <tr>
+                    <td>เพศ :</td>
+                    <td>
+                         <input type="radio" id="m" name="id_sex" value="1" /> ชาย
+                        <input type="radio" id="wsex" name="id_sex" value="2" /> หญิง
                     </td>
                 </tr>
                 <tr>
@@ -151,9 +157,8 @@
                         </select>
                         -->
                         
-                        <input type="radio" id="m" name="id_sex" value="1" /> ชาย
-                        <input type="radio" id="wsex" name="id_sex" value="2" /> หญิง
-                        
+                       
+                       
                          <?=nbs(2)?>
                         <input  class="f1 easyui-textbox" id="firstname" name="firstname" data-options=" iconCls:'icon-man' " required="required" style="width:150px;height: 30px;"></input>
                         <?=nbs(2)?>
@@ -681,3 +686,4 @@
     
 </div>
 <!-- dia  เพิ่มแผนก -->
+

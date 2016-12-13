@@ -92,6 +92,13 @@ class Welcome extends CI_Controller {
             public function  auto_emp()
             {
                 // http://localhost/servey1/index.php/welcome/auto_emp
+                
+                /*
+                 * 
+                 $this->db->join($tbj4,$tb.".diag_detail=".$tbj4.".id_disease","left");
+                 */
+               $tbj3="tb_sex";
+                
                $q = isset($_POST['q']) ? $_POST['q'] : '';
                $this->db->like("name",$q);
                $query=$this->db->get($this->tb_main);
@@ -193,11 +200,13 @@ class Welcome extends CI_Controller {
                 $tbj1="tb_vocation";
                 $tbj2="tb_department";
                 $tbj3="tb_sex";
+               // $tbj4="tb_disease";
                 
                 $this->db->order_by($tb.".id_employee","desc");
                 $this->db->join($tbj1,$tb.".id_vocation=".$tbj1.".id_vocation","left");
                 $this->db->join($tbj2,$tb.".id_department=".$tbj2.".id_department","left");
                 $this->db->join($tbj3,$tb.".id_sex=".$tbj3.".id_sex","left" );
+               // $this->db->join($tbj4,$tb.".diag_detail=".$tbj4.".id_disease","left");
                 $obj=$this->db->get($tb,15);
                 
                 $va_arr = array(); 
@@ -278,9 +287,6 @@ class Welcome extends CI_Controller {
                  $belt=$this->input->get_post('belt');
                 //echo  "<br>";
                   $dmy_insert=$this->input->get_post('dmy_insert');
-                  
-               
-                  
                // echo "<br>";
                      if( strlen($dmy_insert) > 0 )
                      {
@@ -289,13 +295,6 @@ class Welcome extends CI_Controller {
                       // echo "<br>";
                      }
                     
-                    //use_sometimes
-                   $use_sometimes=$this->input->get_post("use_sometimes"); //การออกกำลังกาย     บางครั้ง
-                  //use_always
-           //  echo br();
-                  $use_always=$this->input->get_post("use_always");   // การออกกำลังกาย   สม่ำเสมอ
-            //   echo br();   
-                     
                      
                      /*
                      $this->db->set("id_employee_main",$id_employee);
@@ -332,14 +331,13 @@ class Welcome extends CI_Controller {
                          "head"=>$head,
                         "belt"=>$belt,
                         "dmy_insert"=>$conv,
-                         "AR"=>$AR,
-                         "use_sometimes"=>$use_sometimes,
-                         "use_always"=>$use_always,  
+                         "AR"=>$AR
                      );
                      
                      $tb="tb_record1";
-                     $ck= $this->db->insert($tb,$data);
-                                       
+                    $ck= $this->db->insert($tb,$data);
+                     
+                     
                      if( $ck )
                                 {
                                     echo "1";
@@ -348,16 +346,34 @@ class Welcome extends CI_Controller {
                                     echo "0";
                                 }
                       
+                       
+                      
+                     
+                     
                        }
                        
            public  function  fetch_analy1()
             {
                
                 // http://localhost/servey1/index.php/welcome/fetch_analy1
+               
+               /*
+                
+                
+                $this->db->order_by($tb.".id_employee","desc");
+                $this->db->join($tbj1,$tb.".id_vocation=".$tbj1.".id_vocation","left");
+                $this->db->join($tbj2,$tb.".id_department=".$tbj2.".id_department","left");
+                $this->db->join($tbj3,$tb.".id_sex=".$tbj3.".id_sex","left" );
+               // $this->db->join($tbj4,$tb.".diag_detail=".$tbj4.".id_disease","left");
+                */
+               
+                $tbj4="tb_disease";
+               
                 $this->db->order_by("id_record","desc");
                 $tb="tb_record1";
                 $tb_main=$this->tb_main;
                 $this->db->join($this->tb_main,$tb.".id_employee_main=".$tb_main.".id_employee" ,"left");
+                $this->db->join($tbj4,$tb.".diag_detail=".$tbj4.".id_disease","left");
                 $this->db->order_by("id_record","DESC");
                 $obj=$this->db->get($tb,15);
                 
@@ -539,6 +555,116 @@ class Welcome extends CI_Controller {
          {
              echo "0";
          }      
+     }
+     #----- โรคประจำตัว
+     function  insert_disease()
+     {
+         # http://localhost/servey1/index.php/welcome/insert_disease
+         //SELECT * FROM `tb_disease`
+         $tb="tb_disease";
+         $disease_detail=trim($this->input->get_post("disease_detail"));
+         
+          $data=array(
+             "disease_detail"=>$disease_detail,
+         );
+          
+         $q_num=$this->db->get_where($tb,$data);
+         $num=$q_num->num_rows();
+         
+        if( $num == 0 )
+        {    
+                $ck=$this->db->insert($tb,$data);
+                if( $ck )
+                {
+                   echo "1"; 
+                }else
+                {
+                    echo "0";
+                }
+        }
+        else
+        {
+            echo "f";
+        }
+     }
+     # http://localhost/servey1/index.php/welcome/tb_disease
+     function tb_disease()
+     {
+         $tb="tb_disease";
+         $q=trim($this->input->get_post('q'));
+         $this->db->like("disease_detail",$q);
+         $q=$this->db->get($tb);
+         foreach($q->result() as $row )
+         {
+             $rows[]=$row;
+         }
+         echo json_encode($rows);
+     }
+     # http://localhost/servey1/index.php/welcome/select_disease
+     function select_disease()
+     {
+         $tb="tb_disease";
+         $id_disease=trim($this->uri->segment(3));
+         $q=$this->db->get_where($tb,array("id_disease"=>$id_disease));
+         foreach($q->result() as $row)
+         {
+             $rows[]=$row;
+         }
+         echo json_encode($rows);
+     }
+     # http://localhost/servey1/index.php/welcome/del_disease 
+     function del_disease()
+     {
+         $tb="tb_disease";
+         $id_disease=trim($this->uri->segment(3));
+         $this->db->where("id_disease",$id_disease);
+         $ck=$this->db->delete($tb);
+         if( $ck )
+         {
+             echo "1";
+         }
+         else
+         {
+             echo "0";
+         }
+     }
+     # http://localhost/servey1/index.php/welcome/fetch_disease 
+     function fetch_disease()
+     {
+         $tb="tb_disease";
+         $id_disease=trim($this->uri->segment(3));
+         $q=$this->db->get_where($tb,array("id_disease"=>$id_disease));
+         foreach($q->result() as $row)
+         {
+             $rows[]=$row;
+         }
+         echo json_encode($rows);
+     }
+     # http://localhost/servey1/index.php/welcome/update_disease 
+     function update_disease()
+     {
+         $tb="tb_disease";
+         $id_disease=trim($this->input->get_post('id_disease'));
+         $disease_detail=trim($this->input->get_post("disease_detail"));
+         
+          $data=array(
+             "disease_detail"=>$disease_detail,
+         );
+          
+          $this->db->where('id_disease',$id_disease);
+          $ck=$this->db->update($tb,$data);
+          if($ck)
+          {
+              echo "1";
+          }else
+          {
+              echo "0";
+          }
+     }
+     
+     function update_age()//ใช้สำหรับการ update อายุ
+     {
+         
      }
 }
 

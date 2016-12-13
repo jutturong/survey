@@ -17,6 +17,10 @@
            var  spl_brd=birdthdate.split('-');
            var  year_brd=spl_brd[0];
            //alert(year_brd);
+          //  alert(row.name);  //ชื่อ
+          $('#id_name').textbox('setValue',row.name);
+         //  alert(row.surname);  //นามสกุล
+          $('#id_surname').textbox('setValue',row.surname);
            var d=new Date();
            var  curY=d.getFullYear();
            var  age_cal= curY - year_brd;
@@ -100,7 +104,8 @@
                 <td>
                     
                     <input class="easyui-textbox" readonly="true" style="width:50px;height: 30px" id="id_emp"  name="id_emp" />
-                    
+                       ชื่อ : <input class="easyui-textbox"   id="id_name" name="id_name"   style="width: 80px;height: 30px;" readonly="true"  />
+                       นามสกุล : <input class="easyui-textbox"   id="id_surname" name="id_surname"   style="width: 90px;height: 30px;" readonly="true"  />
                     
                 </td>
             </tr>
@@ -124,7 +129,7 @@
                 <td>
                      <input class="f1 easyui-numberbox" style="width: 100px;height: 30px" id="H" name="H" data-options="iconCls:'icon-add' " ></input> 
                 <?=nbs(1)?>   
-                (เมตร)
+                (เซนติเมตร)
                 </td>
             </tr>
             
@@ -181,8 +186,10 @@
                 <td>ออกกำลังกาย  </td>
                 <td>
                       <input  class="easyui-switchbutton"  id="use_ex" name="ex" data-options="onText:'ออก',offText:'ไม่ออก', value:1 "></input> 
-                   
-                    
+                        บางครั้ง
+                       <input  class="easyui-switchbutton"  id="use_sometimes" name="use_sometimes" data-options="onText:'ใช่',offText:'ไม่ใช่', value:1 "></input> 
+                        สม่ำเสมอ
+                       <input  class="easyui-switchbutton"  id="use_always" name="use_always" data-options="onText:'ใช่',offText:'ไม่ใช่', value:1 "></input> 
                 </td>   
             </tr>
              <tr>
@@ -240,7 +247,9 @@
                                url:'<?=base_url()?>index.php/welcome/add_analysis1/',
                                success:function(data)
                                     { 
-                                        //alert(data); 
+                                          //alert(data); 
+                                        
+                                        
                                         if( data == '1' )
                                         {
                                             $.messager.alert('สถานะการบันทึกข้อมูล','สำเร็จ','Info');
@@ -251,6 +260,9 @@
                                         {   
                                             $.messager.alert('สถานะการบันทึกข้อมูล','ล้มเหลว','Err');
                                         }
+                                        
+                                        
+                                        
                                     }
                                
                            });
