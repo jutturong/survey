@@ -278,46 +278,16 @@ class Welcome extends CI_Controller {
                  $belt=$this->input->get_post('belt');
                 //echo  "<br>";
                   $dmy_insert=$this->input->get_post('dmy_insert');
-                  
-               
-                  
-               // echo "<br>";
-                     if( strlen($dmy_insert) > 0 )
+
+                     if(  $dmy_insert   !=  ""  )
                      {
                          $ex=explode("/",$dmy_insert);
                          $conv=$ex[2]."-".$ex[0]."-".$ex[1];
-                      // echo "<br>";
                      }
-                    
-                    //use_sometimes
+
                    $use_sometimes=$this->input->get_post("use_sometimes"); //การออกกำลังกาย     บางครั้ง
-                  //use_always
-           //  echo br();
                   $use_always=$this->input->get_post("use_always");   // การออกกำลังกาย   สม่ำเสมอ
-            //   echo br();   
-                     
-                     
-                     /*
-                     $this->db->set("id_employee_main",$id_employee);
-                     $this->db->set("age",$age);
-                     $this->db->set("w",$w);
-                     $this->db->set("H",$H);
-                    
-                     $this->db->set("BMI",$BMI);
-                     $this->db->set("id_diag",$id_diag);
-                     $this->db->set("diag_detail",$diag_detail);
-                     $this->db->set("smoke",$smoke);
-                     $this->db->set("alh",$alh);
-                     $this->db->set("exer",$exer);
-                     $this->db->set("head",$head);
-                     $this->db->set("belt",$belt);
-                     $this->db->set("dmy_insert",$conv); 
-                      $this->db->set("AR",$AR);
-                      
-                      */
-                   
-                     
-                     
+
                      $data=array(
                          "id_employee_main"=>$id_employee,
                          "age"=>$age,

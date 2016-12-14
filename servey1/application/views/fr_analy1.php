@@ -80,8 +80,16 @@
                 // $('#calBMI').numberbox('setValue','3');
            // }
            var  power=$('#H').numberbox('getValue')*$('#H').numberbox('getValue');
-           var  cal=$('#w').numberbox('getValue')/power;
-           $('#calBMI').textbox('setValue',cal.toFixed(3));
+           if( power > 0 )
+           {    
+                   var  cal=$('#w').numberbox('getValue')/power;
+                   $('#calBMI').textbox('setValue',cal.toFixed(3));
+           }
+           else
+           {
+                 $('#calBMI').textbox('setValue',0);
+           }
+           
         }
                          );
     });
@@ -119,7 +127,7 @@
             <tr>
                 <td>น้ำหนัก</td>
                 <td>
-                     <input class="f1 easyui-numberbox" style="width: 100px;height: 30px" id="w" name="w" data-options="iconCls:'icon-add' " ></input> 
+                    <input class="f1 easyui-numberbox" style="width: 100px;height: 30px" id="w" name="w" data-options="iconCls:'icon-add' "  required="true" ></input> 
                 <?=nbs(1)?>   
                 (kg)
                 </td>
@@ -127,7 +135,7 @@
             <tr>
                 <td>ส่วนสูง</td>
                 <td>
-                     <input class="f1 easyui-numberbox" style="width: 100px;height: 30px" id="H" name="H" data-options="iconCls:'icon-add' " ></input> 
+                     <input class="f1 easyui-numberbox" style="width: 100px;height: 30px" id="H" name="H" data-options="iconCls:'icon-add' " required="true" ></input> 
                 <?=nbs(1)?>   
                 (เซนติเมตร)
                 </td>
@@ -138,7 +146,7 @@
             
             
              <tr>
-                 <td>BMI  <a href="#" class="f1 easyui-linkbutton" data-options=" iconCls:'icon-print' "  id="btnBMI" >คำนวณ</a> </td>
+                 <td>BMI  <a href="#" class="f1 easyui-linkbutton" data-options=" iconCls:'icon-print' "  id="btnBMI" required="true" >คำนวณ</a> </td>
                 <td><input class="f1 easyui-textbox" style="width: 100px;height: 30px"  id="calBMI" name="calBMI" data-options=" readonly:true " >
                 (kg/เมตร<sup>2</sup>)
                 </td>
@@ -148,7 +156,7 @@
            <tr>
                 <td>รอบเอว</td>
                 <td>
-                     <input class="f1 easyui-numberbox" style="width: 100px;height: 30px" id="AR" name="AR" data-options="iconCls:'icon-add' " ></input> 
+                     <input class="f1 easyui-numberbox" style="width: 100px;height: 30px" id="AR" name="AR" data-options="iconCls:'icon-add' " required="true"  ></input> 
                 <?=nbs(1)?>   
                 (เซนติเมตร)
                 </td>
@@ -248,21 +256,15 @@
                                success:function(data)
                                     { 
                                           //alert(data); 
-                                        
-                                        
                                         if( data == '1' )
                                         {
                                             $.messager.alert('สถานะการบันทึกข้อมูล','สำเร็จ','Info');
                                             $('#win_analy1').window('close');
                                             $('#dg_analy1').datagrid('reload');
-                                            
                                         }else if(data=='0')
                                         {   
                                             $.messager.alert('สถานะการบันทึกข้อมูล','ล้มเหลว','Err');
-                                        }
-                                        
-                                        
-                                        
+                                        } 
                                     }
                                
                            });

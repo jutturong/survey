@@ -417,7 +417,9 @@
                                 url:url,
                                 success:function(data){
                                     //alert(url); 
-                                    //alert(data);
+                                   // alert(data);
+                                    
+                                    
                                     if( data == '1' )
                                  {
                                       //$('#vacation_tabs').tabs('selected',tabs[0]); 
@@ -435,6 +437,8 @@
                                       $('#cmb_vocation_detail').combobox('reload');
                                       $('#dia_ad_vocation').dialog('close'); 
                                  }
+                                 
+                                
                                 },
                                });
                       
