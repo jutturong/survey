@@ -271,6 +271,8 @@
                                      { field:'smoke',title:'สูบบุหรี่' },
                                      { field:'alh',title:'ดื่มสุรา' },
                                      { field:'exer',title:'ออกกำลังกาย' },
+                                     { field:'use_sometimes',title:'ออกกำลังกาย บางครั้ง' },
+                                      { field:'use_always',title:'ออกกำลังกาย สม่ำเสมอ' }, 
                                      { field:'head',title:'สวมหมวกกันน็อค' },
                                      { field:'belt',title:'คาดเข็มขัดนิรภัย' },
                                      { field:'dmy_insert',title:'วัน/เดือน/ปี ที่บันทึก' },
