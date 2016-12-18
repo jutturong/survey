@@ -381,16 +381,31 @@
       $percent_alh_not_all= ($alh_not_all/$row_tb_all)*100;
       
       
-      //------------- ออกกำลังกาย------------------------
+      //------------- ออกกำลังกายประจำ------------------------
        $str_exer_call="select  *  from  $tb  where  exer  in (1)  and     $tb.`dmy_insert`   between   '$Y_begin'  and   '$Y_end'  ";
      $query_exer_call=mysql_query($str_exer_call);
      $exer_all=mysql_num_rows($query_exer_call); //จำนวนคนสูบบุหรี่ทั้งหมด
-     $percent_exer_all= ($exer_all/$row_tb_all)*100;
+     $percent_exer_all= ( $exer_all/$row_tb_all)*100;
      
-       $str_exer_not="select  *  from  $tb  where  exer not in (1)  and     $tb.`dmy_insert`   between   '$Y_begin'  and   '$Y_end'  ";
-     $query_exer_not=mysql_query($str_exer_not);
-      $exer_not_all=mysql_num_rows($query_exer_not); //จำนวนคนสูบบุหรี่ทั้งหมด
-      $percent_exer_not_all= ($exer_not_all/$row_tb_all)*100;
+     //-------------ไม่ออกกำลังกาย---------------
+       $str_not_exer="select  *  from  $tb  where  exer     in (0)   and     $tb.`dmy_insert`   between   '$Y_begin'  and   '$Y_end'  ";
+     $query_not_exer=mysql_query($str_not_exer);
+      $not_exer=mysql_num_rows($query_not_exer); //จำนวนคนสูบบุหรี่ทั้งหมด
+      $percent_not_exer= ($not_exer/$row_tb_all)*100;
+     
+     
+     //-------------การออกกำลังกายบางครั้ง---------------
+       $str_use_sometimes="select  *  from  $tb  where  use_sometimes   in (1)   and     $tb.`dmy_insert`   between   '$Y_begin'  and   '$Y_end'  ";
+     $query_use_sometimes=mysql_query($str_use_sometimes);
+      $use_sometimes=mysql_num_rows($query_use_sometimes); //จำนวนคนสูบบุหรี่ทั้งหมด
+      $percent_use_sometimes= ($use_sometimes/$row_tb_all)*100;
+      
+       //-------------การออกกำลังกายสม่ำเสมอ---------------
+       $str_use_always="select  *  from  $tb  where  use_always   in (1)   and     $tb.`dmy_insert`   between   '$Y_begin'  and   '$Y_end'  ";
+     $query_use_always=mysql_query($str_use_always);
+      $use_always=mysql_num_rows($query_use_always); //จำนวนคนสูบบุหรี่ทั้งหมด
+      $percent_use_always= ($use_always/$row_tb_all)*100;
+      
       
       //-------- สวมหมวกกันน็อค---------------------------
      $str_head_call="select  *  from  $tb  where  head  in (1) ";

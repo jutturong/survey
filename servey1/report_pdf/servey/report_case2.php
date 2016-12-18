@@ -1303,11 +1303,37 @@ $pdf->Cell( 40  , 5 , iconv( 'UTF-8','cp874' , '' ),LRTB,1,'L',true);
 
 
 //----------------------- ขึ้นบรรทัดใหม่----------
-$pdf->setXY( 10 , $y_absolute +  ($r*24.7)  );
+$pdf->setXY( 10 , $y_absolute +  ($r*24.0)  );
 $pdf->SetFont('angsana','B',15); #------ set fonts-----------
 $pdf->SetFillColor(255,255, 255);
 //$pdf->Cell( 190  , 7 , iconv( 'UTF-8','cp874' , 'Patient \'s name : '  . $Name  .'                                     HN : '  . $HN  )   . '                           Ward : ' . $ward_  );
 $pdf->Cell( 80  , 5 , iconv( 'UTF-8','cp874' , 'การสูบบุหรี่ ( n = '.$row_tb_all.' ) ' ),LRTB,1,'L',true);
+
+$pdf->setXY( 90 , $y_absolute +  ($r*24.0)  );
+$pdf->SetFont('angsana','B',15); #------ set fonts-----------
+$pdf->SetFillColor(255,255, 255);
+//$pdf->Cell( 190  , 7 , iconv( 'UTF-8','cp874' , 'Patient \'s name : '  . $Name  .'                                     HN : '  . $HN  )   . '                           Ward : ' . $ward_  );
+$pdf->Cell( 25  , 5 , iconv( 'UTF-8','cp874' , '' ),LRTB,1,'C',true);
+
+$pdf->setXY( 115 , $y_absolute +  ($r*24.0)  );
+$pdf->SetFont('angsana','B',15); #------ set fonts-----------
+$pdf->SetFillColor(255,255, 255);
+//$pdf->Cell( 190  , 7 , iconv( 'UTF-8','cp874' , 'Patient \'s name : '  . $Name  .'                                     HN : '  . $HN  )   . '                           Ward : ' . $ward_  );
+$pdf->Cell( 25  , 5 , iconv( 'UTF-8','cp874' , '' ),LRTB,1,'C',true);
+
+$pdf->setXY( 140 , $y_absolute +  ($r*24.0)  );
+$pdf->SetFont('angsana','B',15); #------ set fonts-----------
+$pdf->SetFillColor(255,255, 255);
+//$pdf->Cell( 190  , 7 , iconv( 'UTF-8','cp874' , 'Patient \'s name : '  . $Name  .'                                     HN : '  . $HN  )   . '                           Ward : ' . $ward_  );
+$pdf->Cell( 40  , 5 , iconv( 'UTF-8','cp874' , '' ),LRTB,1,'C',true);
+
+//----------- ขึ้นบรรทัดใหม่--------------
+$pdf->setXY( 10 , $y_absolute +  ($r*24.7)  );
+$pdf->SetFont('angsana','B',15); #------ set fonts-----------
+$pdf->SetFillColor(255,255, 255);
+//$pdf->Cell( 190  , 7 , iconv( 'UTF-8','cp874' , 'Patient \'s name : '  . $Name  .'                                     HN : '  . $HN  )   . '                           Ward : ' . $ward_  );
+$pdf->Cell( 80  , 5 , iconv( 'UTF-8','cp874' , '' ),LRTB,1,'L',true);
+
 
 $pdf->setXY( 90 , $y_absolute +  ($r*24.7)  );
 $pdf->SetFont('angsana','B',15); #------ set fonts-----------
@@ -1326,7 +1352,6 @@ $pdf->SetFont('angsana','B',15); #------ set fonts-----------
 $pdf->SetFillColor(255,255, 255);
 //$pdf->Cell( 190  , 7 , iconv( 'UTF-8','cp874' , 'Patient \'s name : '  . $Name  .'                                     HN : '  . $HN  )   . '                           Ward : ' . $ward_  );
 $pdf->Cell( 40  , 5 , iconv( 'UTF-8','cp874' , '' ),LRTB,1,'C',true);
-
 
  //----------- ขึ้นบรรทัดใหม่--------------
 
@@ -1516,14 +1541,14 @@ $pdf->setXY( 90 , $y_absolute +  ($r*29.6)  );
 $pdf->SetFont('angsana','B',15); #------ set fonts-----------
 $pdf->SetFillColor(255,255, 255);
 //$pdf->Cell( 190  , 7 , iconv( 'UTF-8','cp874' , 'Patient \'s name : '  . $Name  .'                                     HN : '  . $HN  )   . '                           Ward : ' . $ward_  );
-$pdf->Cell( 25  , 5 , iconv( 'UTF-8','cp874' , ''.$exer_not_all ),LRTB,1,'C',true);
+$pdf->Cell( 25  , 5 , iconv( 'UTF-8','cp874' , ''.$not_exer ),LRTB,1,'C',true);
 
 
 $pdf->setXY( 115 , $y_absolute +  ($r*29.6)  );
 $pdf->SetFont('angsana','B',15); #------ set fonts-----------
 $pdf->SetFillColor(255,255, 255);
 //$pdf->Cell( 190  , 7 , iconv( 'UTF-8','cp874' , 'Patient \'s name : '  . $Name  .'                                     HN : '  . $HN  )   . '                           Ward : ' . $ward_  );
-$pdf->Cell( 25  , 5 , iconv( 'UTF-8','cp874' , $percent_exer_not_all ),RTBL,1,'C',true);
+$pdf->Cell( 25  , 5 , iconv( 'UTF-8','cp874' , $percent_not_exer ),RTBL,1,'C',true);
 
 
 $pdf->setXY( 140 , $y_absolute +  ($r*29.6)  );
@@ -1533,35 +1558,6 @@ $pdf->SetFillColor(255,255, 255);
 $pdf->Cell( 40  , 5 , iconv( 'UTF-8','cp874' , '' ),LRTB,1,'L',true);
 //---------------- ขึ้นบรรทัดใหม่----------------
 
-
-
-$pdf->setXY( 10 , $y_absolute +  ($r*30.3)  );
-$pdf->SetFont('angsana','B',15); #------ set fonts-----------
-$pdf->SetFillColor(255,255, 255);
-//$pdf->Cell( 190  , 7 , iconv( 'UTF-8','cp874' , 'Patient \'s name : '  . $Name  .'                                     HN : '  . $HN  )   . '                           Ward : ' . $ward_  );
-$pdf->Cell( 80  , 5 , iconv( 'UTF-8','cp874' , '                  '.'บางครั้ง' ),LRTB,1,'L',true);
-
-
-$pdf->setXY( 90 , $y_absolute +  ($r*30.3)  );
-$pdf->SetFont('angsana','B',15); #------ set fonts-----------
-$pdf->SetFillColor(255,255, 255);
-//$pdf->Cell( 190  , 7 , iconv( 'UTF-8','cp874' , 'Patient \'s name : '  . $Name  .'                                     HN : '  . $HN  )   . '                           Ward : ' . $ward_  );
-$pdf->Cell( 25  , 5 , iconv( 'UTF-8','cp874' , ''.$exer_all ),LRTB,1,'C',true);
-
-
-$pdf->setXY( 115 , $y_absolute +  ($r*30.3)  );
-$pdf->SetFont('angsana','B',15); #------ set fonts-----------
-$pdf->SetFillColor(255,255, 255);
-//$pdf->Cell( 190  , 7 , iconv( 'UTF-8','cp874' , 'Patient \'s name : '  . $Name  .'                                     HN : '  . $HN  )   . '                           Ward : ' . $ward_  );
-$pdf->Cell( 25  , 5 , iconv( 'UTF-8','cp874' , $percent_exer_all ),RTBL,1,'C',true);
-
-
-$pdf->setXY( 140 , $y_absolute +  ($r*30.3)  );
-$pdf->SetFont('angsana','B',15); #------ set fonts-----------
-$pdf->SetFillColor(255,255, 255);
-//$pdf->Cell( 190  , 7 , iconv( 'UTF-8','cp874' , 'Patient \'s name : '  . $Name  .'                                     HN : '  . $HN  )   . '                           Ward : ' . $ward_  );
-$pdf->Cell( 40  , 5 , iconv( 'UTF-8','cp874' , '' ),LRTB,1,'L',true);
-//---------------- ขึ้นบรรทัดใหม่----------------
 
 
 
@@ -1576,14 +1572,14 @@ $pdf->setXY( 90 , $y_absolute +  ($r*30.3)  );
 $pdf->SetFont('angsana','B',15); #------ set fonts-----------
 $pdf->SetFillColor(255,255, 255);
 //$pdf->Cell( 190  , 7 , iconv( 'UTF-8','cp874' , 'Patient \'s name : '  . $Name  .'                                     HN : '  . $HN  )   . '                           Ward : ' . $ward_  );
-$pdf->Cell( 25  , 5 , iconv( 'UTF-8','cp874' , ''.$num_rows_sex_m1 ),LRTB,1,'C',true);
+$pdf->Cell( 25  , 5 , iconv( 'UTF-8','cp874' , ''.$exer_all ),LRTB,1,'C',true);
 
 
 $pdf->setXY( 115 , $y_absolute +  ($r*30.3)  );
 $pdf->SetFont('angsana','B',15); #------ set fonts-----------
 $pdf->SetFillColor(255,255, 255);
 //$pdf->Cell( 190  , 7 , iconv( 'UTF-8','cp874' , 'Patient \'s name : '  . $Name  .'                                     HN : '  . $HN  )   . '                           Ward : ' . $ward_  );
-$pdf->Cell( 25  , 5 , iconv( 'UTF-8','cp874' , $percen_m1 ),RTBL,1,'C',true);
+$pdf->Cell( 25  , 5 , iconv( 'UTF-8','cp874' , $percent_exer_all),RTBL,1,'C',true);
 
 
 $pdf->setXY( 140 , $y_absolute +  ($r*30.3)  );
@@ -1604,14 +1600,14 @@ $pdf->setXY( 90 , $y_absolute +  ($r*31)  );
 $pdf->SetFont('angsana','B',15); #------ set fonts-----------
 $pdf->SetFillColor(255,255, 255);
 //$pdf->Cell( 190  , 7 , iconv( 'UTF-8','cp874' , 'Patient \'s name : '  . $Name  .'                                     HN : '  . $HN  )   . '                           Ward : ' . $ward_  );
-$pdf->Cell( 25  , 5 , iconv( 'UTF-8','cp874' , ''.$num_rows_sex_m1 ),LRTB,1,'C',true);
+$pdf->Cell( 25  , 5 , iconv( 'UTF-8','cp874' , ''.$use_sometimes ),LRTB,1,'C',true);
 
 
 $pdf->setXY( 115 , $y_absolute +  ($r*31)  );
 $pdf->SetFont('angsana','B',15); #------ set fonts-----------
 $pdf->SetFillColor(255,255, 255);
 //$pdf->Cell( 190  , 7 , iconv( 'UTF-8','cp874' , 'Patient \'s name : '  . $Name  .'                                     HN : '  . $HN  )   . '                           Ward : ' . $ward_  );
-$pdf->Cell( 25  , 5 , iconv( 'UTF-8','cp874' , $percen_m1 ),RTBL,1,'C',true);
+$pdf->Cell( 25  , 5 , iconv( 'UTF-8','cp874' , $percent_use_sometimes ),RTBL,1,'C',true);
 
 
 $pdf->setXY( 140 , $y_absolute +  ($r*31)  );
@@ -1632,14 +1628,14 @@ $pdf->setXY( 90 , $y_absolute +  ($r*31.7)  );
 $pdf->SetFont('angsana','B',15); #------ set fonts-----------
 $pdf->SetFillColor(255,255, 255);
 //$pdf->Cell( 190  , 7 , iconv( 'UTF-8','cp874' , 'Patient \'s name : '  . $Name  .'                                     HN : '  . $HN  )   . '                           Ward : ' . $ward_  );
-$pdf->Cell( 25  , 5 , iconv( 'UTF-8','cp874' , ''.$num_rows_sex_m1 ),LRTB,1,'C',true);
+$pdf->Cell( 25  , 5 , iconv( 'UTF-8','cp874' , ''.$use_always ),LRTB,1,'C',true);
 
 
 $pdf->setXY( 115 , $y_absolute +  ($r*31.7)  );
 $pdf->SetFont('angsana','B',15); #------ set fonts-----------
 $pdf->SetFillColor(255,255, 255);
 //$pdf->Cell( 190  , 7 , iconv( 'UTF-8','cp874' , 'Patient \'s name : '  . $Name  .'                                     HN : '  . $HN  )   . '                           Ward : ' . $ward_  );
-$pdf->Cell( 25  , 5 , iconv( 'UTF-8','cp874' , $percen_m1 ),RTBL,1,'C',true);
+$pdf->Cell( 25  , 5 , iconv( 'UTF-8','cp874' , $percent_use_always ),RTBL,1,'C',true);
 
 
 $pdf->setXY( 140 , $y_absolute +  ($r*31.7)  );
@@ -1710,6 +1706,7 @@ $pdf->Cell( 40  , 5 , iconv( 'UTF-8','cp874' , '' ),LRTB,1,'L',true);
 
 
  //------------- ขึ้นบรรทัดใหม่------------------------------
+/*
 $pdf->setXY( 10 , $y_absolute +  ($r*32.4)  );
 $pdf->SetFont('angsana','B',15); #------ set fonts-----------
 $pdf->SetFillColor(255,255, 255);
@@ -1736,30 +1733,31 @@ $pdf->SetFont('angsana','B',15); #------ set fonts-----------
 $pdf->SetFillColor(255,255, 255);
 //$pdf->Cell( 190  , 7 , iconv( 'UTF-8','cp874' , 'Patient \'s name : '  . $Name  .'                                     HN : '  . $HN  )   . '                           Ward : ' . $ward_  );
 $pdf->Cell( 40  , 5 , iconv( 'UTF-8','cp874' , '' ),LRTB,1,'L',true);
+*/
 
 //---------- ขึ้นบรรทัดใหม่------------------------
 
 
 
-$pdf->setXY( 10 , $y_absolute +  ($r*33.1)  );
+$pdf->setXY( 10 , $y_absolute +  ($r*33.8)  );
 $pdf->SetFont('angsana','B',15); #------ set fonts-----------
 $pdf->SetFillColor(255,255, 255);
 //$pdf->Cell( 190  , 7 , iconv( 'UTF-8','cp874' , 'Patient \'s name : '  . $Name  .'                                     HN : '  . $HN  )   . '                           Ward : ' . $ward_  );
 $pdf->Cell( 80  , 5 , iconv( 'UTF-8','cp874' , 'คาดเข็มขัดนิรภัย (n = '.$row_tb_all.' ) ' ),LRTB,1,'L',true);
 
-$pdf->setXY( 90 , $y_absolute +  ($r*33.1)  );
+$pdf->setXY( 90 , $y_absolute +  ($r*33.8)  );
 $pdf->SetFont('angsana','B',15); #------ set fonts-----------
 $pdf->SetFillColor(255,255, 255);
 //$pdf->Cell( 190  , 7 , iconv( 'UTF-8','cp874' , 'Patient \'s name : '  . $Name  .'                                     HN : '  . $HN  )   . '                           Ward : ' . $ward_  );
 $pdf->Cell( 25  , 5 , iconv( 'UTF-8','cp874' , '' ),LRTB,1,'C',true);
 
-$pdf->setXY( 115 , $y_absolute +  ($r*33.1)  );
+$pdf->setXY( 115 , $y_absolute +  ($r*33.8)  );
 $pdf->SetFont('angsana','B',15); #------ set fonts-----------
 $pdf->SetFillColor(255,255, 255);
 //$pdf->Cell( 190  , 7 , iconv( 'UTF-8','cp874' , 'Patient \'s name : '  . $Name  .'                                     HN : '  . $HN  )   . '                           Ward : ' . $ward_  );
 $pdf->Cell( 25  , 5 , iconv( 'UTF-8','cp874' , '' ),LRTB,1,'C',true);
 
-$pdf->setXY( 140 , $y_absolute +  ($r*33.1)  );
+$pdf->setXY( 140 , $y_absolute +  ($r*33.8)  );
 $pdf->SetFont('angsana','B',15); #------ set fonts-----------
 $pdf->SetFillColor(255,255, 255);
 //$pdf->Cell( 190  , 7 , iconv( 'UTF-8','cp874' , 'Patient \'s name : '  . $Name  .'                                     HN : '  . $HN  )   . '                           Ward : ' . $ward_  );
@@ -1770,28 +1768,28 @@ $pdf->Cell( 40  , 5 , iconv( 'UTF-8','cp874' , '' ),LRTB,1,'C',true);
  
  //---------------- ขึ้นบรรทัดใหม่----------------
 
-$pdf->setXY( 10 , $y_absolute +  ($r*33.8)  );
+$pdf->setXY( 10 , $y_absolute +  ($r*34.5)  );
 $pdf->SetFont('angsana','B',15); #------ set fonts-----------
 $pdf->SetFillColor(255,255, 255);
 //$pdf->Cell( 190  , 7 , iconv( 'UTF-8','cp874' , 'Patient \'s name : '  . $Name  .'                                     HN : '  . $HN  )   . '                           Ward : ' . $ward_  );
 $pdf->Cell( 80  , 5 , iconv( 'UTF-8','cp874' , '                  '.'ไม่คาด' ),LRTB,1,'L',true);
 
 
-$pdf->setXY( 90 , $y_absolute +  ($r*33.8)  );
+$pdf->setXY( 90 , $y_absolute +  ($r*34.5)  );
 $pdf->SetFont('angsana','B',15); #------ set fonts-----------
 $pdf->SetFillColor(255,255, 255);
 //$pdf->Cell( 190  , 7 , iconv( 'UTF-8','cp874' , 'Patient \'s name : '  . $Name  .'                                     HN : '  . $HN  )   . '                           Ward : ' . $ward_  );
 $pdf->Cell( 25  , 5 , iconv( 'UTF-8','cp874' , ''.$belt_not_all ),LRTB,1,'C',true);
 
 
-$pdf->setXY( 115 , $y_absolute +  ($r*33.8)  );
+$pdf->setXY( 115 , $y_absolute +  ($r*34.5)  );
 $pdf->SetFont('angsana','B',15); #------ set fonts-----------
 $pdf->SetFillColor(255,255, 255);
 //$pdf->Cell( 190  , 7 , iconv( 'UTF-8','cp874' , 'Patient \'s name : '  . $Name  .'                                     HN : '  . $HN  )   . '                           Ward : ' . $ward_  );
 $pdf->Cell( 25  , 5 , iconv( 'UTF-8','cp874' , $percent_belt_not_all ),RTBL,1,'C',true);
 
 
-$pdf->setXY( 140 , $y_absolute +  ($r*33.8)  );
+$pdf->setXY( 140 , $y_absolute +  ($r*34.5)  );
 $pdf->SetFont('angsana','B',15); #------ set fonts-----------
 $pdf->SetFillColor(255,255, 255);
 //$pdf->Cell( 190  , 7 , iconv( 'UTF-8','cp874' , 'Patient \'s name : '  . $Name  .'                                     HN : '  . $HN  )   . '                           Ward : ' . $ward_  );
@@ -1801,28 +1799,28 @@ $pdf->Cell( 40  , 5 , iconv( 'UTF-8','cp874' , '' ),LRTB,1,'L',true);
   
   //---------------- ขึ้นบรรทัดใหม่----------------
 
-$pdf->setXY( 10 , $y_absolute +  ($r*34.5)  );
+$pdf->setXY( 10 , $y_absolute +  ($r*35.2)  );
 $pdf->SetFont('angsana','B',15); #------ set fonts-----------
 $pdf->SetFillColor(255,255, 255);
 //$pdf->Cell( 190  , 7 , iconv( 'UTF-8','cp874' , 'Patient \'s name : '  . $Name  .'                                     HN : '  . $HN  )   . '                           Ward : ' . $ward_  );
 $pdf->Cell( 80  , 5 , iconv( 'UTF-8','cp874' , '                  '.'คาด' ),LRTB,1,'L',true);
 
 
-$pdf->setXY( 90 , $y_absolute +  ($r*34.5)  );
+$pdf->setXY( 90 , $y_absolute +  ($r*35.2)  );
 $pdf->SetFont('angsana','B',15); #------ set fonts-----------
 $pdf->SetFillColor(255,255, 255);
 //$pdf->Cell( 190  , 7 , iconv( 'UTF-8','cp874' , 'Patient \'s name : '  . $Name  .'                                     HN : '  . $HN  )   . '                           Ward : ' . $ward_  );
 $pdf->Cell( 25  , 5 , iconv( 'UTF-8','cp874' , ''.$belt_all ),LRTB,1,'C',true);
 
 
-$pdf->setXY( 115 , $y_absolute +  ($r*34.5)  );
+$pdf->setXY( 115 , $y_absolute +  ($r*35.2)  );
 $pdf->SetFont('angsana','B',15); #------ set fonts-----------
 $pdf->SetFillColor(255,255, 255);
 //$pdf->Cell( 190  , 7 , iconv( 'UTF-8','cp874' , 'Patient \'s name : '  . $Name  .'                                     HN : '  . $HN  )   . '                           Ward : ' . $ward_  );
 $pdf->Cell( 25  , 5 , iconv( 'UTF-8','cp874' , $percent_belt_all ),RTBL,1,'C',true);
 
 
-$pdf->setXY( 140 , $y_absolute +  ($r*34.5)  );
+$pdf->setXY( 140 , $y_absolute +  ($r*35.2)  );
 $pdf->SetFont('angsana','B',15); #------ set fonts-----------
 $pdf->SetFillColor(255,255, 255);
 //$pdf->Cell( 190  , 7 , iconv( 'UTF-8','cp874' , 'Patient \'s name : '  . $Name  .'                                     HN : '  . $HN  )   . '                           Ward : ' . $ward_  );
