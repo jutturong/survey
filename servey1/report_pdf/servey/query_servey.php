@@ -11,6 +11,11 @@
   $Y_end=$Y."-12-31";
 // echo  "<br>";
 
+  //id_vocation
+  $id_vocation=$_REQUEST["id_vocation"];
+  //id_department
+  $id_departmen=$_REQUEST["id_departmen"];
+  
  $tb="`tb_record1`";
  $tbj1="`tb_employee`";
 

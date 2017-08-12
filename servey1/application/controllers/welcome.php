@@ -31,6 +31,13 @@ class Welcome extends CI_Controller {
 
 	public function index()
 	{
+            
+                         date_default_timezone_set("Asia/Bangkok");    
+                          $sess_timerecord=date("Y-m-d H:s:00");
+                        // echo br();
+                        $data["year_cur"]=date("Y");
+                       // echo br();
+     
 		//$this->load->view('welcome_message');
              $data['title']=$this->title;
              $this->load->view('home',$data);

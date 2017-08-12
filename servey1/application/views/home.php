@@ -486,10 +486,12 @@
      <!-- ค้นหาข้อมูลจากการวิเคราะห์ผล -->
      
      <!-- การวิเคราะห์ผล จากหน่วยงานประจำปี -->
-     <div class="easyui-dialog" id="dia_analysis" title='การวิเคราะห์ผล จากหน่วยงานประจำปี' style="width:400px;height: 100px;padding: 10px;" data-options="
+     <div class="easyui-dialog" id="dia_analysis" title='การวิเคราะห์ผล จากหน่วยงานประจำปี' style="width:400px;height: 150px;padding: 10px;" data-options="
           iconCls:'icon-man',
           closed:true,
-          
+            buttons:[
+          { text:'Close(ปิด)',iconCls:'icon-cancel',handler:function(){ $('#dia_analysis').dialog('close');  } }
+          ]
           ">
          <div style="padding: 10xp;">
              
@@ -508,14 +510,14 @@
                  >
              </select>
               -->
-              <select  class="easyui-combobox"  style="width: 200px;height: 40px;"  data-options="
+              <select  class="easyui-combobox" id="cb_id_department"  style="width: 200px;height: 40px;"  data-options="
                        url:'<?=base_url()?>index.php/welcome/fetch_department',
                         valueField:'id_department',
                        textField:'department_detail',
                        onSelect:function(data)
                        {
                            //alert(data
-                           var url_report='<?=base_url()?>report_pdf/servey/report_case2.php?y=2017';
+                           var url_report='<?=base_url()?>report_pdf/servey/report_case2.php?y=<?=@$year_cur?>&id_department=' + $('#cb_id_department').combobox('getValue')  ;
                            //window.open(url);
                              $.messager.confirm('เลือกชื่อหน่วยงานที่ต้องการประมวลผล','เลือกชื่อหน่วยงานที่ต้องการ',function(r)
                              {
@@ -536,21 +538,23 @@
      <!-- วิเคราะห์ผล -->
      
      <!-- การวิเคราะห์ผลจาก อาชีพ -->
-      <div class="easyui-dialog" id="dia_analysis_vacation" title='การวิเคราะห์ผล จากอาชีพ' style="width:400px;height: 100px;padding: 10px;" data-options="
+      <div class="easyui-dialog" id="dia_analysis_vacation" title='การวิเคราะห์ผล จากอาชีพ' style="width:400px;height: 150px;padding: 10px;" data-options="
           iconCls:'icon-man',
           closed:true,
-          
+          buttons:[
+          { text:'Close(ปิด)',iconCls:'icon-cancel',handler:function(){ $('#dia_analysis_vacation').dialog('close');  } }
+          ]
           ">
           <div style="padding: 10xp;" />
               
-           <select  class="easyui-combobox"  style="width: 200px;height: 40px;"  data-options="
+          <select  class="easyui-combobox" id="cb_id_vocation" style="width: 200px;height: 40px;"  data-options="
                        url:'<?=base_url()?>index.php/welcome/fetch_vocation',
                         valueField:'id_vocation',
                        textField:'vocation_detail',
                        onSelect:function(data)
                        {
                            //alert(data
-                           var url_report='<?=base_url()?>report_pdf/servey/report_case2.php?y=2017';
+                           var url_report='<?=base_url()?>report_pdf/servey/report_case2.php?y=<?=@$year_cur?>&id_vocation=' + $('#cb_id_vocation').combobox('getValue');
                            //window.open(url);
                              $.messager.confirm('เลือกชื่ออาชีพที่ต้องการประมวลผล','เลือกชื่ออาชีพอาชีพที่ต้องการ',function(r)
                              {
