@@ -1912,8 +1912,14 @@ while($row=mysql_fetch_array($result))
     $str_dia=" SELECT   *    FROM    `tb_record1`  where  `diag_detail` = $id_disease_va   and   `dmy_insert`   between   '$Y_begin'  and   '$Y_end'   ";
     $query_dia=  mysql_query($str_dia);
     $sum_dis=mysql_num_rows($query_dia);
+    if( $row_tb_all > 0 )
+    {
     $percent_dis=  number_format( ($sum_dis/$row_tb_all)*100 ,1);
-    
+    }
+    else
+    {
+        $percent_dis =0;
+    }
     $pdf->setXY( 10 , $y_absolute +  ($r*$h)  );
 $pdf->SetFont('angsana','B',15); #------ set fonts-----------
 $pdf->SetFillColor(255,255, 255);

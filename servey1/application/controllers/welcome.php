@@ -7,39 +7,39 @@ class Welcome extends CI_Controller {
 	 *
 	 * Maps to the following URL
 	 * 		http://example.com/index.php/welcome
-	 *	- or -  
+	 *	- or -
 	 * 		http://example.com/index.php/welcome/index
 	 *	- or -
-	 * Since this controller is set as the default controller in 
+	 * Since this controller is set as the default controller in
 	 * config/routes.php, it's displayed at http://example.com/
 	 *
 	 * So any other public methods not prefixed with an underscore will
 	 * map to /index.php/welcome/<method_name>
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
-    
+
         var  $title=" โปรแกรมสำรวจพฤติกรรมสุขภาพบุคลากรโรงพยาบาลขอนแก่น ";
         var  $tb_main="tb_employee";
         var  $tb_analy="tb_record1";
         public function __construct()
         {
-       
+
              parent::__construct();
              $this->load->helper('html');
             // $this->load->library('database');
         }
-    
+
 	public function index()
 	{
 		//$this->load->view('welcome_message');
              $data['title']=$this->title;
              $this->load->view('home',$data);
 	}
-        
+
         public  function  insert_employee() //เพิ่มข้อมูล
         {
             // http://localhost/servey1/index.php/welcome/insert_employee
-            
+
             //echo json_encode(array("status"=>"บันทึกข้อมูลแล้ว"));
           //  $id_title=trim($this->input->get_post('id_title'));
             //echo "<br>";
@@ -47,23 +47,23 @@ class Welcome extends CI_Controller {
             //echo "<br>";
              $lastname=trim($this->input->get_post('lastname'));
             //echo '<br>';
-            
-            
-            
+
+
+
             $id_department=trim($this->input->get_post("id_department"));
             //echo "<br>";
             $cmb_vocation_detail=trim($this->input->get_post("cmb_vocation_detail"));
             //echo "<br>";
-            
-            $id_sex=trim($this->input->get_post("id_sex"));           
+
+            $id_sex=trim($this->input->get_post("id_sex"));
             $birdthdate=trim($this->input->get_post("birdthdate"));
             if( strlen($birdthdate) > 0  )
             {
                 $ex=explode("/",$birdthdate);
                 $conv_brd=$ex[2]."-".$ex[0]."-".$ex[1];
             }
-            
-            $tb=$this->tb_main;              
+
+            $tb=$this->tb_main;
             $data=array(
                // "id_title"=>$id_title,
                 "name"=>$firstname,
@@ -71,8 +71,8 @@ class Welcome extends CI_Controller {
                "id_department"=>$id_department,
                "id_vocation"=>$cmb_vocation_detail,
                 "id_sex"=>$id_sex,
-               //"birdthdate"=>$birdthdate, 
-                "birdthdate"=>$conv_brd, 
+               //"birdthdate"=>$birdthdate,
+                "birdthdate"=>$conv_brd,
             );
              $ck=$this->db->insert($tb,$data);
              if( $ck )
@@ -82,13 +82,14 @@ class Welcome extends CI_Controller {
              {
                  echo "0";
              }
-            
-           
-            
-            
+
+
+
+
 
             }
-            
+
+            //
             public function  auto_emp()
             {
                 // http://localhost/servey1/index.php/welcome/auto_emp
@@ -101,7 +102,7 @@ class Welcome extends CI_Controller {
                }
                echo json_encode($rows);
             }
-            
+
             public  function id_emp() //search  by  รายชื่อ employee
             {
                // http://localhost/servey1/index.php/welcome/id_emp/22
@@ -115,14 +116,14 @@ class Welcome extends CI_Controller {
                     }
                     echo  json_encode($rows);
                 }
-                
+
             }
-            
+
             public function update_emp()
             {
                // http://localhost/servey1/index.php/welcome/update_emp
-                    $id_employee=trim($this->input->get_post('id_employee'));    
-                
+                    $id_employee=trim($this->input->get_post('id_employee'));
+
                   //  $id_title=trim($this->input->get_post('id_title'));
             //echo "<br>";
                     $firstname=trim($this->input->get_post('firstname'));
@@ -136,17 +137,17 @@ class Welcome extends CI_Controller {
                     //echo "<br>";
                     $cmb_vocation_detail=trim($this->input->get_post("cmb_vocation_detail"));
                     //echo "<br>";
-                    
-                      $id_sex=trim($this->input->get_post("id_sex"));           
+
+                      $id_sex=trim($this->input->get_post("id_sex"));
             $birdthdate=trim($this->input->get_post("birdthdate"));
             if( strlen($birdthdate) > 0  )
             {
                 $ex=explode("/",$birdthdate);
                 $conv_brd=$ex[2]."-".$ex[0]."-".$ex[1];
             }
-            
-            
-                    $tb=$this->tb_main;              
+
+
+                    $tb=$this->tb_main;
                     $data=array(
                      //   "id_title"=>$id_title,
                         "name"=>$firstname,
@@ -154,8 +155,8 @@ class Welcome extends CI_Controller {
                        "id_department"=>$id_department,
                        "id_vocation"=>$cmb_vocation_detail,
                            "id_sex"=>$id_sex,
-               //"birdthdate"=>$birdthdate, 
-                "birdthdate"=>$conv_brd, 
+               //"birdthdate"=>$birdthdate,
+                "birdthdate"=>$conv_brd,
                     );
                     $this->db->where("id_employee",$id_employee);
                     $ck=$this->db->update($tb,$data);
@@ -167,7 +168,7 @@ class Welcome extends CI_Controller {
                     {
                         echo "0";
                     }
-                
+
             }
             public  function  id_analy() //search by  การวิเคราะห์ผล
             {
@@ -182,53 +183,66 @@ class Welcome extends CI_Controller {
                     }
                     echo  json_encode($rows);
                 }
-                
+
             }
-            
+
             public  function  fetch_employee()
             {
-               
+
                  // http://localhost/servey1/index.php/welcome/fetch_employee
                 $tb=$this->tb_main;
                 $tbj1="tb_vocation";
                 $tbj2="tb_department";
                 $tbj3="tb_sex";
-                
+
                 $this->db->order_by($tb.".id_employee","desc");
                 $this->db->join($tbj1,$tb.".id_vocation=".$tbj1.".id_vocation","left");
                 $this->db->join($tbj2,$tb.".id_department=".$tbj2.".id_department","left");
                 $this->db->join($tbj3,$tb.".id_sex=".$tbj3.".id_sex","left" );
                 $obj=$this->db->get($tb,15);
-                
-                $va_arr = array(); 
+
+                $va_arr = array();
                         foreach($obj->result() as $row )
                         {
                             $va_arr[]=$row;
                         }
                         echo json_encode($va_arr);
-            
-            
+
+
             }
-            
-            public  function  fetch_department()
+           //http://localhost/servey1/index.php/welcome/fetch_vocation
+            public function fetch_vocation()
             {
-                 // http://localhost/servey1/index.php/welcome/fetch_department
-                $q=$this->db->query(" select  distinct department from  `tb_employee` ");
+                  $tb="tb_vocation";
+                $q=$this->db->get($tb);
                 foreach($q->result() as $row)
                 {
                     $rows[]=$row;
                 }
                 echo json_encode($rows);
             }
-            
+           //http://localhost/servey1/index.php/welcome/fetch_department
+            public  function  fetch_department()  // เลือกแผนกการทำงาน
+            {
+                 // http://localhost/servey1/index.php/welcome/fetch_department
+               // $q=$this->db->query(" select  distinct department from  `tb_employee` ");
+                $tb="tb_department";
+                $q=$this->db->get($tb);
+                foreach($q->result() as $row)
+                {
+                    $rows[]=$row;
+                }
+                echo json_encode($rows);
+            }
+
             function  del_emp()
             {
                 $id_employee=trim($this->input->get_post('id_employee'));
                 if( $id_employee > 0 )
                 {
-                            $tb=$this->tb_main;       
+                            $tb=$this->tb_main;
                             $this->db->where('id_employee', $id_employee );
-                            $ck=$this->db->delete($tb);                   
+                            $ck=$this->db->delete($tb);
                             if( $ck )
                             {
                                 echo json_encode(array("success"=>1));
@@ -242,9 +256,9 @@ class Welcome extends CI_Controller {
                 {
                     echo json_encode(array("success"=>0));
                 }
-                
+
             }
-            
+
             #----- TABLE สำหรับการวิเคราะห์ผล -------------
             function  add_analysis1()
             {
@@ -260,7 +274,7 @@ class Welcome extends CI_Controller {
                  $H=$this->input->get_post('H');
                // echo "<br>";
                  $AR=$this->input->get_post('AR');
-                 
+
                 $BMI=$this->input->get_post("calBMI");
                //echo "<br>";
                 $id_diag=$this->input->get_post('id_diag');
@@ -286,30 +300,35 @@ class Welcome extends CI_Controller {
                      }
 
                    $use_sometimes=$this->input->get_post("use_sometimes"); //การออกกำลังกาย     บางครั้ง
+									 if($use_sometimes == '' ){ $use_sometimes=0; }
+									// echo $use_sometimes;
+
                   $use_always=$this->input->get_post("use_always");   // การออกกำลังกาย   สม่ำเสมอ
 
                      $data=array(
                          "id_employee_main"=>$id_employee,
-                         "age"=>$age,
-                         "w"=>$w,
+                        "age"=>$age,
+                        "w"=>$w,
                          "H"=>$H,
                          "BMI"=>$BMI,
-                         "id_diag"=>$id_diag,
-                        "diag_detail"=>$diag_detail,
-                         "smoke"=>$smoke,
+                        "id_diag"=>$id_diag,
+                      "diag_detail"=>$diag_detail,
+                        "smoke"=>$smoke,
                          "alh"=>$alh,
-                        "exer"=>$exer,
-                         "head"=>$head,
-                        "belt"=>$belt,
+                       "exer"=>$exer,
+                        "head"=>$head,
+                       "belt"=>$belt,
                         "dmy_insert"=>$conv,
                          "AR"=>$AR,
                          "use_sometimes"=>$use_sometimes,
-                         "use_always"=>$use_always,  
+                    //    "use_always"=>$use_always,
                      );
-                     
+
                      $tb="tb_record1";
+
+
                      $ck= $this->db->insert($tb,$data);
-                                       
+
                      if( $ck )
                                 {
                                     echo "1";
@@ -317,12 +336,15 @@ class Welcome extends CI_Controller {
                                 {
                                     echo "0";
                                 }
-                      
+
+
+
                        }
-                       
+
+
            public  function  fetch_analy1()
             {
-               
+
                 // http://localhost/servey1/index.php/welcome/fetch_analy1
                 $this->db->order_by("id_record","desc");
                 $tb="tb_record1";
@@ -330,27 +352,27 @@ class Welcome extends CI_Controller {
                 $this->db->join($this->tb_main,$tb.".id_employee_main=".$tb_main.".id_employee" ,"left");
                 $this->db->order_by("id_record","DESC");
                 $obj=$this->db->get($tb,15);
-                
-                
-                
-                $va_arr = array(); 
+
+
+
+                $va_arr = array();
                         foreach($obj->result() as $row )
                         {
                             $va_arr[]=$row;
                         }
                         echo json_encode($va_arr);
-            
-            
+
+
             }
-            
+
             function  del_analy()
             {
                 $id_record=trim($this->input->get_post('id_record'));
                 if( $id_record > 0 )
                 {
-                            $tb=$this->tb_main;       
+                            $tb=$this->tb_main;
                             $this->db->where('id_record', $id_record );
-                            $ck=$this->db->delete("tb_record1");                   
+                            $ck=$this->db->delete("tb_record1");
                             if( $ck )
                             {
                                 echo json_encode(array("success"=>1));
@@ -364,9 +386,9 @@ class Welcome extends CI_Controller {
                 {
                     echo json_encode(array("success"=>0));
                 }
-                
+
             }
-            
+
            #----- อาชีพ ----------------
      #SELECT * FROM `tb_vocation`
      # http://localhost/servey1/index.php/welcome/tb_vocation
@@ -388,7 +410,7 @@ class Welcome extends CI_Controller {
      {
            $vocation_detail=trim($this->input->get_post('add_vocation_detail'));
          //echo "<br>";
-         
+
          $data=array(
              "vocation_detail"=>$vocation_detail,
          );
@@ -407,7 +429,7 @@ class Welcome extends CI_Controller {
      {
          $id_vocation=trim($this->uri->segment(3));
          //echo $id_vocation;
-         
+
          $tb="tb_vocation";
           $this->db->where("id_vocation",$id_vocation);
           $ck=$this->db->delete($tb);
@@ -417,7 +439,7 @@ class Welcome extends CI_Controller {
          }else
          {
              echo "0";
-         }      
+         }
      }
      # http://localhost/servey1/index.php/welcome/update_vocation
      function update_vocation()
@@ -437,9 +459,9 @@ class Welcome extends CI_Controller {
          }else
          {
              echo "0";
-         }  
+         }
      }
-     
+
      # Depart ment
      # SELECT * FROM `tb_department`
      # http://localhost/servey1/index.php/welcome/tb_department
@@ -469,7 +491,7 @@ class Welcome extends CI_Controller {
          }else
          {
              echo "0";
-         }  
+         }
      }
       # http://localhost/servey1/index.php/welcome/update_department
      function update_department()
@@ -491,14 +513,14 @@ class Welcome extends CI_Controller {
          }else
          {
              echo "0";
-         }  
+         }
      }
      # http://localhost/servey1/index.php/welcome/del_department
      function del_department()
      {
          $id_department=trim($this->uri->segment(3));
          //echo $id_vocation;
-         
+
          $tb="tb_department";
           $this->db->where("id_department",$id_department);
           $ck=$this->db->delete($tb);
@@ -508,7 +530,7 @@ class Welcome extends CI_Controller {
          }else
          {
              echo "0";
-         }      
+         }
      }
 }
 
