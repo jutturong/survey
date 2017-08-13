@@ -14,7 +14,7 @@
   //id_vocation
   $id_vocation=$_REQUEST["id_vocation"];
   //id_department
-  $id_departmen=$_REQUEST["id_departmen"];
+  $id_department=$_REQUEST["id_department"];
   
  $tb="`tb_record1`";
  $tbj1="`tb_employee`";
@@ -26,7 +26,15 @@
      where   $tb.`dmy_insert`   between   $Y_begin   and  $Y_end
  ;";
 
-
+ if(  $id_department > 0 )
+ {
+     $sql="  select  *  from  $tb
+     left join  $tbj1  on  $tb.`id_employee_main`= $tbj1.`id_employee`    
+     where   $tb.`dmy_insert`   between   $Y_begin   and  $Y_end  and  $tbj1.`id_department` = $id_department
+ ;";
+ }
+ 
+ 
 /*
   $sql="  select  *  from  $tb
       left join  $tbj1  on  $tb.`id_employee_main`= $tbj1.`id_employee`
@@ -47,6 +55,12 @@
  // $tbj1.id_sex > 0   and    $tb.`dmy_insert`   between   '2016-1-1'  and   '2016-12-1'
  $sex="  select  *  from   $tb    inner    join   $tbj1   on    $tb.`id_employee_main`=$tbj1.`id_employee`   where    $tbj1.id_sex > 0   and    $tb.`dmy_insert`   between   '$Y_begin'  and   '$Y_end'      ";
 
+ if( $id_department > 0 )
+ {
+     $sex="  select  *  from   $tb    inner    join   $tbj1   on    $tb.`id_employee_main`=$tbj1.`id_employee`   where    $tbj1.id_sex > 0   and    $tb.`dmy_insert`   between   '$Y_begin'  and   '$Y_end'   and  $tbj1.`id_department` = $id_department   ";
+ }
+ 
+ 
  /*
   SELECT * FROM `tb_employee` RIGHT JOIN `tb_record1` ON `tb_employee`.`id_employee`=`tb_record1`.`id_employee_main` WHERE `tb_employee`.`id_sex` > 0 AND `tb_record1`.`dmy_insert` BETWEEN 2016-1-1 AND 2016-12-1
   */
@@ -64,7 +78,14 @@
 
 //------ ชาย
   $sex_m="  select  *  from   $tb    left    join   $tbj1   on    $tb.`id_employee_main`=$tbj1.`id_employee`   where    $tbj1.id_sex = 1   and    $tb.`dmy_insert`   between   '$Y_begin'  and   '$Y_end'      ";
- //$sex_m="  select  id_sex from   $tbj1  join  $tbj1   where  id_sex = 1 ";
+
+ if( $id_department > 0 )
+ {
+       $sex_m="  select  *  from   $tb    left    join   $tbj1   on    $tb.`id_employee_main`=$tbj1.`id_employee`   where    $tbj1.id_sex = 1   and    $tb.`dmy_insert`   between   '$Y_begin'  and   '$Y_end'  and  $tbj1.`id_department` = $id_department    ";
+
+ }  
+
+//$sex_m="  select  id_sex from   $tbj1  join  $tbj1   where  id_sex = 1 ";
  $result_sex_m=mysql_query($sex_m);
  $num_rows_sex_m=mysql_num_rows($result_sex_m);
 
@@ -78,7 +99,11 @@
 
 //------ หญิง
   $sex_w="  select  *  from   $tb    left    join   $tbj1   on    $tb.`id_employee_main`=$tbj1.`id_employee`   where    $tbj1.id_sex = 2   and    $tb.`dmy_insert`   between   '$Y_begin'  and   '$Y_end'      ";
+if( $id_department > 0 )
+    {
+     $sex_w="  select  *  from   $tb    left    join   $tbj1   on    $tb.`id_employee_main`=$tbj1.`id_employee`   where    $tbj1.id_sex = 2   and    $tb.`dmy_insert`   between   '$Y_begin'  and   '$Y_end'    and  $tbj1.`id_department` = $id_department   ";
 
+    }
  //$sex_w="  select  id_sex  from   $tbj1  where   id_sex = 2 ";
 
  $result_sex_w=mysql_query($sex_w);
@@ -102,6 +127,13 @@ else{
 
  //------ อายุ -------
  $str_age="  select   birdthdate   from   $tbj1   left    join   $tb  on    $tb.`id_employee_main`=$tbj1.`id_employee`   where    $tbj1.id_sex = 1   and    $tb.`dmy_insert`   between   '$Y_begin'  and   '$Y_end'     ";
+ 
+  if( $id_department > 0 )
+      {
+      $str_age="  select   birdthdate   from   $tbj1   left    join   $tb  on    $tb.`id_employee_main`=$tbj1.`id_employee`   where    $tbj1.id_sex = 1   and    $tb.`dmy_insert`   between   '$Y_begin'  and   '$Y_end'   and  $tbj1.`id_department` = $id_department  ";
+ 
+      }
+      
  $query_age=mysql_query($str_age);
  $array_date=array();
  while($result=mysql_fetch_row($query_age))
@@ -128,6 +160,13 @@ else{
 
  //-------- ชาย อายุ ------
  $str_age_m="  select  birdthdate   from   $tbj1   right    join   $tb   on    $tb.`id_employee_main`=$tbj1.`id_employee`     where  $tbj1.`id_sex` =1  and   $tb.`dmy_insert`    between   '$Y_begin'  and   '$Y_end' ";
+ 
+  if( $id_department > 0 )
+      {
+         $str_age_m="  select  birdthdate   from   $tbj1   right    join   $tb   on    $tb.`id_employee_main`=$tbj1.`id_employee`     where  $tbj1.`id_sex` =1  and   $tb.`dmy_insert`    between   '$Y_begin'  and   '$Y_end'   and  $tbj1.`id_department` = $id_department   ";
+ 
+      }
+      
  $query_age_m=mysql_query($str_age_m);
  $array_date_m=array();
  while($result=mysql_fetch_row($query_age_m))
@@ -157,6 +196,14 @@ else{
 
           //------ ชาย
              $sex_m1="  select  id_sex  from   $tbj1  right    join   $tb   on    $tb.`id_employee_main`=$tbj1.`id_employee`   where      $tbj1.`id_sex` = 1  and   $tb.`dmy_insert`    between   '$Y_begin'  and   '$Y_end' ";
+          
+              if( $id_department > 0 )
+                  {
+                     $sex_m1="  select  id_sex  from   $tbj1  right    join   $tb   on    $tb.`id_employee_main`=$tbj1.`id_employee`   where      $tbj1.`id_sex` = 1  and   $tb.`dmy_insert`    between   '$Y_begin'  and   '$Y_end'  and  $tbj1.`id_department` = $id_department   ";
+          
+                  }
+             
+             
              $result_sex_m1=mysql_query($sex_m1);
              $num_rows_sex_m1=mysql_num_rows($result_sex_m1);
              //$num_rows_sex_m
@@ -166,6 +213,13 @@ else{
         elseif( $calY_m >= 31  && $calY_m <= 40 )
             {
                     $sex_m2="  select  id_sex  from   $tbj1   right    join   $tb   on    $tb.`id_employee_main`=$tbj1.`id_employee`   where  $tbj1.`id_sex` = 1  and   $tb.`dmy_insert`    between   '$Y_begin'  and   '$Y_end'  ";
+                    
+                     if( $id_department > 0 )
+                         {
+                             $sex_m2="  select  id_sex  from   $tbj1   right    join   $tb   on    $tb.`id_employee_main`=$tbj1.`id_employee`   where  $tbj1.`id_sex` = 1  and   $tb.`dmy_insert`    between   '$Y_begin'  and   '$Y_end'   and  $tbj1.`id_department` = $id_department   ";
+                   
+                         }
+                    
                     $result_sex_m2=mysql_query($sex_m2);
                     $num_rows_sex_m2=mysql_num_rows($result_sex_m2);
                     //$num_rows_sex_m
@@ -175,6 +229,13 @@ else{
       elseif( $calY_m >= 41  && $calY_m <= 50 )
             {
                     $sex_m3="  select  id_sex  from   $tbj1  right    join   $tb   on    $tb.`id_employee_main`=$tbj1.`id_employee`   where  $tbj1.`id_sex` = 1    and   $tb.`dmy_insert`    between   '$Y_begin'  and   '$Y_end'   ";
+                 
+                    if( $id_department > 0 )
+                    {
+                           $sex_m3="  select  id_sex  from   $tbj1  right    join   $tb   on    $tb.`id_employee_main`=$tbj1.`id_employee`   where  $tbj1.`id_sex` = 1    and   $tb.`dmy_insert`    between   '$Y_begin'  and   '$Y_end'  and  $tbj1.`id_department` = $id_department   ";
+                 
+                    }
+                    
                     $result_sex_m3=mysql_query($sex_m3);
                     $num_rows_sex_m3=mysql_num_rows($result_sex_m3);
                     //$num_rows_sex_m
@@ -184,6 +245,13 @@ else{
              elseif( $calY_m >= 51  && $calY_m <= 60 )
             {
                     $sex_m4="  select  id_sex  from   $tbj1   right    join   $tb   on    $tb.`id_employee_main`=$tbj1.`id_employee`    where  $tbj1.`id_sex` = 1    and  $tb.`dmy_insert`    between   '$Y_begin'  and   '$Y_end' ";
+                    
+                    if( $id_department > 0 )
+                        {
+                           $sex_m4="  select  id_sex  from   $tbj1   right    join   $tb   on    $tb.`id_employee_main`=$tbj1.`id_employee`    where  $tbj1.`id_sex` = 1    and  $tb.`dmy_insert`    between   '$Y_begin'  and   '$Y_end'  and  $tbj1.`id_department` = $id_department   ";
+                 
+                        }
+                    
                     $result_sex_m4=mysql_query($sex_m4);
                     $num_rows_sex_m4=mysql_num_rows($result_sex_m4);
                     //$num_rows_sex_m
@@ -204,6 +272,13 @@ else{
 
  //-------- หญิง อายุ ------
  $str_age_w="  select  `birdthdate`   from   $tbj1  right    join   $tb   on    $tb.`id_employee_main`=$tbj1.`id_employee`    where   $tbj1.`id_sex`=2    and  $tb.`dmy_insert`    between   '$Y_begin'  and   '$Y_end'   ";
+ 
+  if( $id_department > 0 )
+  {
+      $str_age_w="  select  `birdthdate`   from   $tbj1  right    join   $tb   on    $tb.`id_employee_main`=$tbj1.`id_employee`    where   $tbj1.`id_sex`=2    and  $tb.`dmy_insert`    between   '$Y_begin'  and   '$Y_end' and  $tbj1.`id_department` = $id_department  ";
+ 
+  }
+ 
  $query_age_w=mysql_query($str_age_w);
  $array_date_w=array();
  while($result=mysql_fetch_row($query_age_w))
@@ -219,6 +294,12 @@ else{
                       //$total_age_m1 += $calY_m;
                     //------ ชาย
                        $sex_w1="  select  id_sex  from   $tbj1  where  id_sex = 2 ";
+                       
+                       if( $id_department > 0 )
+                           {
+                              $sex_w1="  select  id_sex  from   $tbj1  where  id_sex = 2  and  $tbj1.`id_department` = $id_department  ";
+                           }
+                           
                        $result_sex_w1=mysql_query($sex_w1);
                        $num_rows_sex_w1=mysql_num_rows($result_sex_w1);
                        //$num_rows_sex_m
@@ -231,6 +312,12 @@ else{
                       //$total_age_m1 += $calY_m;
                     //------ ชาย
                        $sex_w2="  select  id_sex  from   $tbj1  where  id_sex = 2 ";
+                       
+                       if( $id_department > 0 )
+                           {
+                               $sex_w2="  select  id_sex  from   $tbj1  where  id_sex = 2  and  $tbj1.`id_department` = $id_department   ";
+                           }
+                       
                        $result_sex_w2=mysql_query($sex_w2);
                        $num_rows_sex_w2=mysql_num_rows($result_sex_w2);
                        //$num_rows_sex_m
@@ -243,6 +330,12 @@ else{
                       //$total_age_m1 += $calY_m;
                     //------ ชาย
                        $sex_w3="  select  id_sex  from   $tbj1  where  id_sex = 2 ";
+                       
+                        if( $id_department > 0 )
+                        {
+                               $sex_w3="  select  id_sex  from   $tbj1  where  id_sex = 2  and  $tbj1.`id_department` = $id_department   ";
+                        }
+                       
                        $result_sex_w3=mysql_query($sex_w3);
                        $num_rows_sex_w3=mysql_num_rows($result_sex_w3);
                        //$num_rows_sex_m
@@ -261,6 +354,14 @@ else{
 
  // ดัชนีมวลกาย
  $str_bmi=" SELECT   *    FROM   $tb  left    join   $tbj1   on    $tb.`id_employee_main`=$tbj1.`id_employee`    where       $tb.`dmy_insert`   between   '$Y_begin'  and   '$Y_end'  ";
+ 
+ if( $id_department > 0 )
+ {
+     $str_bmi=" SELECT   *    FROM   $tb  left    join   $tbj1   on    $tb.`id_employee_main`=$tbj1.`id_employee`    where       $tb.`dmy_insert`   between   '$Y_begin'  and   '$Y_end'  and  $tbj1.`id_department` = $id_department  ";
+ 
+     
+ }
+
  $query_bmi=mysql_query( $str_bmi );
 //echo  mysql_num_rows($query_bmi);
  $total_bmi=0;
@@ -338,6 +439,13 @@ else{  $percent_bmi_3=""; }
 
      //SELECT * FROM `tb_record1` LEFT JOIN `tb_employee` ON `tb_record1`.`id_employee_main`=`tb_employee`.`id_employee` where `tb_employee`.`id_sex`=1
      $srt_ar=" SELECT * FROM  $tb  LEFT  JOIN  $tbj1  ON   $tb.`id_employee_main`=$tbj1.`id_employee`  where  $tbj1.`id_sex`=1  and    $tb.`dmy_insert`   between   '$Y_begin'  and   '$Y_end'   ";
+     
+      if( $id_department > 0 )
+          {
+            $srt_ar=" SELECT * FROM  $tb  LEFT  JOIN  $tbj1  ON   $tb.`id_employee_main`=$tbj1.`id_employee`  where  $tbj1.`id_sex`=1  and    $tb.`dmy_insert`   between   '$Y_begin'  and   '$Y_end'  and  $tbj1.`id_department` = $id_department  ";
+   
+          }
+          
      $query_ar=  mysql_query($srt_ar);
      //echo  mysql_num_fields($query_ar);
      while($result= mysql_fetch_object($query_ar))
@@ -371,6 +479,13 @@ else{  $percent_bmi_3=""; }
 
      //SELECT * FROM `tb_record1` LEFT JOIN `tb_employee` ON `tb_record1`.`id_employee_main`=`tb_employee`.`id_employee` where `tb_employee`.`id_sex`=1
      $srt_ar_w=" SELECT * FROM  $tb  LEFT  JOIN  $tbj1  ON   $tb.`id_employee_main`=$tbj1.`id_employee`  where  $tbj1.`id_sex`=2   and    $tb.`dmy_insert`   between   '$Y_begin'  and   '$Y_end'  ";
+ 
+      if( $id_department > 0 )
+      {
+          $srt_ar_w=" SELECT * FROM  $tb  LEFT  JOIN  $tbj1  ON   $tb.`id_employee_main`=$tbj1.`id_employee`  where  $tbj1.`id_sex`=2   and    $tb.`dmy_insert`   between   '$Y_begin'  and   '$Y_end'  and  $tbj1.`id_department` = $id_department   ";
+ 
+      }
+     
      $query_ar_w=  mysql_query($srt_ar_w);
      //echo  mysql_num_fields($query_ar);
      while($result= mysql_fetch_object($query_ar_w))
@@ -399,19 +514,46 @@ else{  $percent_bmi_3=""; }
 
    ##--------------- สูบบุหรี่------------------
      $strm=" select *  from  $tb   left    join   $tbj1   on    $tb.`id_employee_main`=$tbj1.`id_employee`   where      $tb.`dmy_insert`   between   '$Y_begin'  and   '$Y_end'   ";
+     
+     if( $id_department > 0 )
+         {
+           $strm=" select *  from  $tb   left    join   $tbj1   on    $tb.`id_employee_main`=$tbj1.`id_employee`   where      $tb.`dmy_insert`   between   '$Y_begin'  and   '$Y_end'  and  $tbj1.`id_department` = $id_department   ";
+   
+         }
+     
      $query_strm=mysql_query($strm);
      $row_tb_all=mysql_num_rows($query_strm); //จำนวนคนทั้งหมด
      //----------- สูบ---------------
      $str_m_call="select  *  from  $tb  where  smoke in (1)   and     $tb.`dmy_insert`   between   '$Y_begin'  and   '$Y_end'  ";
+     
+      if( $id_department > 0 )
+      {
+          $str_m_call="select  *  from  $tb  "
+                  . "join  $tbj1   on   $tb.`id_employee_main`=$tbj1.`id_employee`    "
+                  
+                  . "where  smoke in (1)     and     $tb.`dmy_insert`   between   '$Y_begin'  and   '$Y_end'  and  $tbj1.`id_department` = $id_department    ";
+     
+      }
+     
      $query_strm_call=mysql_query($str_m_call);
      $smoke_all=mysql_num_rows($query_strm_call); //จำนวนคนสูบบุหรี่ทั้งหมด
 if( $row_tb_all>0  )
 {
      $percent_smoke_all= ($smoke_all/$row_tb_all)*100;
-} else{ $percent_smoke_all=""; }
+} else{ $percent_smoke_all=0; }
     //echo "<br>";
       //----------- ไม่สูบ---------------
      $str_m_not="select  *  from  $tb  where  smoke not in (1)  and     $tb.`dmy_insert`   between   '$Y_begin'  and   '$Y_end'  ";
+     
+      if( $id_department > 0 )
+      {
+           $str_m_not="select  *  from  $tb  "
+                   . "join  $tbj1   on   $tb.`id_employee_main`=$tbj1.`id_employee`    "
+                   . "where  smoke not in (1)  and     $tb.`dmy_insert`   between   '$Y_begin'  and   '$Y_end'   and  $tbj1.`id_department` = $id_department  ";
+     
+      }
+     
+     
      $query_strm_not=mysql_query($str_m_not);
       $smoke_not_all=mysql_num_rows($query_strm_not); //จำนวนคนสูบบุหรี่ทั้งหมด
       if( $row_tb_all > 0 )
@@ -422,6 +564,15 @@ if( $row_tb_all>0  )
 
       //---------- ดื่มสุรา------------------------------
      $str_alh_call="select  *  from  $tb  where  alh in (1)   and     $tb.`dmy_insert`   between   '$Y_begin'  and   '$Y_end'  ";
+     
+      if( $id_department > 0 )
+      {
+            $str_alh_call="select  *  from  $tb  "
+                   . "join  $tbj1   on   $tb.`id_employee_main`=$tbj1.`id_employee`    "
+                    . "where  alh in (1)   and     $tb.`dmy_insert`   between   '$Y_begin'  and   '$Y_end'   and  $tbj1.`id_department` = $id_department    ";
+   
+      }
+     
      $query_alh_call=mysql_query($str_alh_call);
      $alh_all=mysql_num_rows($query_alh_call); //จำนวนคนสูบบุหรี่ทั้งหมด
      if( $row_tb_all > 0)
@@ -430,6 +581,15 @@ if( $row_tb_all>0  )
 }else{  $percent_alh_all=0; }
 
      $str_alh_not="select  *  from  $tb  where  alh not in (1) ";
+     
+      if( $id_department > 0 )
+          {
+            $str_alh_not="select  *  from  $tb "
+                  . "join  $tbj1   on   $tb.`id_employee_main`=$tbj1.`id_employee`    "
+
+                    . " where  alh not in (1)  and  $tbj1.`id_department` = $id_department  ";
+          }
+          
      $query_alh_not=mysql_query($str_alh_not);
       $alh_not_all=mysql_num_rows($query_alh_not); //จำนวนคนสูบบุหรี่ทั้งหมด
     if( $row_tb_all > 0 )
@@ -440,6 +600,15 @@ if( $row_tb_all>0  )
 
       //------------- ออกกำลังกายประจำ------------------------
        $str_exer_call="select  *  from  $tb  where  exer  in (1)  and     $tb.`dmy_insert`   between   '$Y_begin'  and   '$Y_end'  ";
+       
+       if( $id_department > 0 )
+           {
+            $str_exer_call="select  *  from  $tb  "
+                  . "join  $tbj1   on   $tb.`id_employee_main`=$tbj1.`id_employee`    "
+                    . "where  exer  in (1)  and     $tb.`dmy_insert`   between   '$Y_begin'  and   '$Y_end'  and  $tbj1.`id_department` = $id_department   ";
+      
+           }
+           
      $query_exer_call=mysql_query($str_exer_call);
      $exer_all=mysql_num_rows($query_exer_call); //จำนวนคนสูบบุหรี่ทั้งหมด
      if( $row_tb_all > 0)
@@ -447,10 +616,17 @@ if( $row_tb_all>0  )
      $percent_exer_all= ( $exer_all/$row_tb_all)*100;
      }
      else {
-       $percent_exer_all="";
+       $percent_exer_all=0;
      }
      //-------------ไม่ออกกำลังกาย---------------
        $str_not_exer="select  *  from  $tb  where  exer     in (0)   and     $tb.`dmy_insert`   between   '$Y_begin'  and   '$Y_end'  ";
+        if( $id_department > 0 )
+        {
+            $str_not_exer="select  *  from  $tb"
+                . "join  $tbj1   on   $tb.`id_employee_main`=$tbj1.`id_employee`    "
+                    . "  where  exer     in (0)   and     $tb.`dmy_insert`   between   '$Y_begin'  and   '$Y_end'  and  $tbj1.`id_department` = $id_department  ";
+        }
+       
      $query_not_exer=mysql_query($str_not_exer);
       $not_exer=mysql_num_rows($query_not_exer); //จำนวนคนสูบบุหรี่ทั้งหมด
       if( $row_tb_all > 0 )
@@ -458,11 +634,21 @@ if( $row_tb_all>0  )
       $percent_not_exer= ($not_exer/$row_tb_all)*100;
       }
       else{
-        $percent_not_exer="";
+        $percent_not_exer=0;
       }
 
      //-------------การออกกำลังกายบางครั้ง---------------
       $str_use_sometimes="select  *  from  $tb  where  $tb.`use_sometimes` in (1)   and     $tb.`dmy_insert`   between   '$Y_begin'  and   '$Y_end'  ";
+    
+       if( $id_department > 0 )
+       {
+              $str_use_sometimes="select  *  from  $tb  "
+                   . "join  $tbj1   on   $tb.`id_employee_main`=$tbj1.`id_employee`    "
+
+                      . "where  $tb.`use_sometimes` in (1)   and     $tb.`dmy_insert`   between   '$Y_begin'  and   '$Y_end'  and  $tbj1.`id_department` = $id_department  ";
+   
+       }
+      
       $query_use_sometimes=mysql_query($str_use_sometimes);
       $use_sometimes=mysql_num_rows($query_use_sometimes); //จำนวนคนสูบบุหรี่ทั้งหมด
       if( $row_tb_all>0 && $use_sometimes > 0 )
@@ -475,7 +661,17 @@ if( $row_tb_all>0  )
 
        //-------------การออกกำลังกายสม่ำเสมอ---------------
        $str_use_always="select  *  from  $tb  where  use_always   in (1)   and     $tb.`dmy_insert`   between   '$Y_begin'  and   '$Y_end'  ";
-     $query_use_always=mysql_query($str_use_always);
+    
+       if( $id_department > 0 )
+           {
+               $str_use_always="select  *  from  $tb  "
+                   . "join  $tbj1   on   $tb.`id_employee_main`=$tbj1.`id_employee`    "
+                       . "where  use_always   in (1)   and     $tb.`dmy_insert`   between   '$Y_begin'  and   '$Y_end'  and  $tbj1.`id_department` = $id_department  ";
+    
+           }
+       
+       
+       $query_use_always=mysql_query($str_use_always);
       $use_always=mysql_num_rows($query_use_always); //จำนวนคนสูบบุหรี่ทั้งหมด
       if( $row_tb_all > 0 )
       {
@@ -487,6 +683,14 @@ if( $row_tb_all>0  )
 
       //-------- สวมหมวกกันน็อค---------------------------
      $str_head_call="select  *  from  $tb  where  head  in (1) ";
+     
+     if( $id_department > 0 )
+         {
+            $str_head_call="select  *  from  $tb"
+                 . "join  $tbj1   on   $tb.`id_employee_main`=$tbj1.`id_employee`    "
+                    . "  where  head  in (1)   and  $tbj1.`id_department` = $id_department ";
+         }
+         
      $query_head_call=mysql_query($str_head_call);
      $head_all=mysql_num_rows($query_head_call); //จำนวนคนสูบบุหรี่ทั้งหมด
      if( $row_tb_all > 0 )
@@ -496,7 +700,16 @@ if( $row_tb_all>0  )
      else{ $percent_head_all="";}
 
       $str_head_not="select  *  from  $tb  where  head  not in (1) and     $tb.`dmy_insert`   between   '$Y_begin'  and   '$Y_end'  ";
-     $query_head_not=mysql_query($str_head_not);
+     
+       if( $id_department > 0 )
+           {
+            $str_head_not="select  *  from  $tb  "
+                 . "join  $tbj1   on   $tb.`id_employee_main`=$tbj1.`id_employee`    "
+                    . "where  head  not in (1) and     $tb.`dmy_insert`   between   '$Y_begin'  and   '$Y_end'  and  $tbj1.`id_department` = $id_department  ";
+     
+           }
+           
+      $query_head_not=mysql_query($str_head_not);
       $head_not_all=mysql_num_rows($query_head_not); //จำนวนคนสูบบุหรี่ทั้งหมด
       if($row_tb_all>0)
       {
@@ -507,6 +720,15 @@ if( $row_tb_all>0  )
       }
       //------------ คาดเข็มขัดนิรภัย---------------------------
      $str_belt_call="select  *  from  $tb  where  belt  in (1)   and     $tb.`dmy_insert`   between   '$Y_begin'  and   '$Y_end'   ";
+   
+     if( $id_department > 0 )
+     {
+          $str_belt_call="select  *  from  $tb  "
+               . "join  $tbj1   on   $tb.`id_employee_main`=$tbj1.`id_employee`    "
+                  . "where  belt  in (1)   and     $tb.`dmy_insert`   between   '$Y_begin'  and   '$Y_end' and  $tbj1.`id_department` = $id_department  ";
+   
+     }
+         
      $query_belt_call=mysql_query($str_belt_call);
      $belt_all=mysql_num_rows($query_belt_call); //จำนวนคนสูบบุหรี่ทั้งหมด
      if( $row_tb_all > 0)
@@ -518,7 +740,16 @@ if( $row_tb_all>0  )
       }
 
       $str_belt_not="select  *  from  $tb  where  belt  not in (1)    and     $tb.`dmy_insert`   between   '$Y_begin'  and   '$Y_end'  ";
-     $query_belt_not=mysql_query($str_belt_not);
+     
+       if( $id_department > 0 )
+       {
+            $str_belt_not="select  *  from  $tb  "
+                . "join  $tbj1   on   $tb.`id_employee_main`=$tbj1.`id_employee`    "
+                    . "where  belt  not in (1)    and     $tb.`dmy_insert`   between   '$Y_begin'  and   '$Y_end'   and  $tbj1.`id_department` = $id_department ";
+     
+       }
+      
+      $query_belt_not=mysql_query($str_belt_not);
       $belt_not_all=mysql_num_rows($query_belt_not); //จำนวนคนสูบบุหรี่ทั้งหมด
       if( $row_tb_all > 0)
       {
@@ -530,6 +761,15 @@ if( $row_tb_all>0  )
 
       //------------โรคประจำตัวทั้งหมด-----------------------
       $str_dia="select *  from  $tb  where  diag_detail > 0    and     $tb.`dmy_insert`   between   '$Y_begin'  and   '$Y_end'   ";
+      
+       if( $id_department > 0 )
+           {
+             $str_dia="select *  from  $tb  "
+                   . "join  $tbj1   on   $tb.`id_employee_main`=$tbj1.`id_employee`    "
+                     . "where  diag_detail > 0    and     $tb.`dmy_insert`   between   '$Y_begin'  and   '$Y_end'   and  $tbj1.`id_department` = $id_department ";
+    
+           }
+      
       $query_dia=mysql_query($str_dia);
       $num_dia=mysql_num_rows($query_dia); //จำนวนคนที่มีโรคประจำตัว
 
